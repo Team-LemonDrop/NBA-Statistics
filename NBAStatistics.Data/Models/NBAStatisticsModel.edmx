@@ -1,0 +1,784 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NBAStatisticsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Arenas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Capacity" Type="int" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+        </EntityType>
+        <EntityType Name="Conferences">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HeadCoaches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayFirstLastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DisplayLastCommaFirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Birthday" Type="smalldatetime" />
+          <Property Name="SchoolId" Type="int" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="20" />
+          <Property Name="TeamId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="PlayersTeams">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schools">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CityId" Type="int" />
+        </EntityType>
+        <EntityType Name="StandingsByDay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="smalldatetime" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="SeasonId" Type="int" Nullable="false" />
+          <Property Name="ConferenceId" Type="int" Nullable="false" />
+          <Property Name="Games" Type="tinyint" Nullable="false" />
+          <Property Name="Wins" Type="tinyint" Nullable="false" />
+          <Property Name="Loses" Type="tinyint" Nullable="false" />
+          <Property Name="SuccessRate" Type="float" Nullable="false" />
+          <Property Name="HomeRecord" Type="tinyint" Nullable="false" />
+          <Property Name="RoadRecord" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Abbreviation" Type="nvarchar" MaxLength="20" />
+          <Property Name="Founded" Type="date" Nullable="false" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="ArenaId" Type="int" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="HeadCoachId" Type="int" Nullable="false" />
+          <Property Name="Logo" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Arenas_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="Arenas" Type="Self.Arenas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Arenas">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cities_Countries">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="0..1" />
+          <End Role="Cities" Type="Self.Cities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cities">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeadCoaches_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="HeadCoaches" Type="Self.HeadCoaches" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HeadCoaches">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Players">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Schools">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayersTeams_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="PlayersTeams" Type="Self.PlayersTeams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayersTeams">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayersTeams_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="PlayersTeams" Type="Self.PlayersTeams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayersTeams">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schools_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Schools" Type="Self.Schools" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schools">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StandingsByDay_Conferences">
+          <End Role="Conferences" Type="Self.Conferences" Multiplicity="1" />
+          <End Role="StandingsByDay" Type="Self.StandingsByDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conferences">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StandingsByDay">
+              <PropertyRef Name="ConferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StandingsByDay_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="StandingsByDay" Type="Self.StandingsByDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StandingsByDay">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NBAStatisticsModelStoreContainer">
+          <EntitySet Name="Arenas" EntityType="Self.Arenas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conferences" EntityType="Self.Conferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HeadCoaches" EntityType="Self.HeadCoaches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayersTeams" EntityType="Self.PlayersTeams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StandingsByDay" EntityType="Self.StandingsByDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Arenas_Teams" Association="Self.FK_Arenas_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Arenas" EntitySet="Arenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cities_Countries" Association="Self.FK_Cities_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Cities" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeadCoaches_Teams" Association="Self.FK_HeadCoaches_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="HeadCoaches" EntitySet="HeadCoaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Cities" Association="Self.FK_Players_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Players" Association="Self.FK_Players_Players">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Schools" Association="Self.FK_Players_Schools">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayersTeams_Players" Association="Self.FK_PlayersTeams_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayersTeams" EntitySet="PlayersTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayersTeams_Teams" Association="Self.FK_PlayersTeams_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="PlayersTeams" EntitySet="PlayersTeams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schools_Cities" Association="Self.FK_Schools_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Schools" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StandingsByDay_Conferences" Association="Self.FK_StandingsByDay_Conferences">
+            <End Role="Conferences" EntitySet="Conferences" />
+            <End Role="StandingsByDay" EntitySet="StandingsByDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StandingsByDay_Teams" Association="Self.FK_StandingsByDay_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="StandingsByDay" EntitySet="StandingsByDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Cities" Association="Self.FK_Teams_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NBAStatisticsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Arena">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_Arenas_Teams" FromRole="Arenas" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Cities_Countries" FromRole="Cities" ToRole="Countries" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Players_Cities" FromRole="Cities" ToRole="Players" />
+          <NavigationProperty Name="Schools" Relationship="Self.FK_Schools_Cities" FromRole="Cities" ToRole="Schools" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK_Teams_Cities" FromRole="Cities" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Conference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="StandingsByDays" Relationship="Self.FK_StandingsByDay_Conferences" FromRole="Conferences" ToRole="StandingsByDay" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_Cities_Countries" FromRole="Countries" ToRole="Cities" />
+        </EntityType>
+        <EntityType Name="HeadCoach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_HeadCoaches_Teams" FromRole="HeadCoaches" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayFirstLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayLastCommaFirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="SchoolId" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TeamId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Players_Cities" FromRole="Players" ToRole="Cities" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_Players_Players" FromRole="Players" ToRole="Teams" />
+          <NavigationProperty Name="School" Relationship="Self.FK_Players_Schools" FromRole="Players" ToRole="Schools" />
+          <NavigationProperty Name="Teams" Relationship="Self.PlayersTeams" FromRole="Players" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Schools_Cities" FromRole="Schools" ToRole="Cities" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Players_Schools" FromRole="Schools" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="StandingsByDay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="SeasonId" Type="Int32" Nullable="false" />
+          <Property Name="ConferenceId" Type="Int32" Nullable="false" />
+          <Property Name="Games" Type="Byte" Nullable="false" />
+          <Property Name="Wins" Type="Byte" Nullable="false" />
+          <Property Name="Loses" Type="Byte" Nullable="false" />
+          <Property Name="SuccessRate" Type="Double" Nullable="false" />
+          <Property Name="HomeRecord" Type="Byte" Nullable="false" />
+          <Property Name="RoadRecord" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Conference" Relationship="Self.FK_StandingsByDay_Conferences" FromRole="StandingsByDay" ToRole="Conferences" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_StandingsByDay_Teams" FromRole="StandingsByDay" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Abbreviation" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Founded" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="ArenaId" Type="Int32" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="HeadCoachId" Type="Int32" Nullable="false" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Arena" Relationship="Self.FK_Arenas_Teams" FromRole="Teams" ToRole="Arenas" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Teams_Cities" FromRole="Teams" ToRole="Cities" />
+          <NavigationProperty Name="HeadCoach" Relationship="Self.FK_HeadCoaches_Teams" FromRole="Teams" ToRole="HeadCoaches" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Players_Players" FromRole="Teams" ToRole="Players" />
+          <NavigationProperty Name="StandingsByDays" Relationship="Self.FK_StandingsByDay_Teams" FromRole="Teams" ToRole="StandingsByDay" />
+          <NavigationProperty Name="Players1" Relationship="Self.PlayersTeams" FromRole="Teams" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK_Arenas_Teams">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="Arenas" Type="Self.Arena" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Arenas">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cities_Countries">
+          <End Role="Countries" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Cities" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cities">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="1" />
+          <End Role="Players" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schools_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Schools" Type="Self.School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schools">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teams_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="1" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StandingsByDay_Conferences">
+          <End Role="Conferences" Type="Self.Conference" Multiplicity="1" />
+          <End Role="StandingsByDay" Type="Self.StandingsByDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conferences">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StandingsByDay">
+              <PropertyRef Name="ConferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeadCoaches_Teams">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="HeadCoaches" Type="Self.HeadCoach" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HeadCoaches">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Players">
+          <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Schools">
+          <End Role="Schools" Type="Self.School" Multiplicity="1" />
+          <End Role="Players" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StandingsByDay_Teams">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="StandingsByDay" Type="Self.StandingsByDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StandingsByDay">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlayersTeams">
+          <End Role="Players" Type="Self.Player" Multiplicity="*" />
+          <End Role="Teams" Type="Self.Team" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="NBAStatisticsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Arenas" EntityType="Self.Arena" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Conferences" EntityType="Self.Conference" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="HeadCoaches" EntityType="Self.HeadCoach" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="Schools" EntityType="Self.School" />
+          <EntitySet Name="StandingsByDays" EntityType="Self.StandingsByDay" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="FK_Arenas_Teams" Association="Self.FK_Arenas_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Arenas" EntitySet="Arenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cities_Countries" Association="Self.FK_Cities_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Cities" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Cities" Association="Self.FK_Players_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schools_Cities" Association="Self.FK_Schools_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Schools" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teams_Cities" Association="Self.FK_Teams_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StandingsByDay_Conferences" Association="Self.FK_StandingsByDay_Conferences">
+            <End Role="Conferences" EntitySet="Conferences" />
+            <End Role="StandingsByDay" EntitySet="StandingsByDays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeadCoaches_Teams" Association="Self.FK_HeadCoaches_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="HeadCoaches" EntitySet="HeadCoaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Players" Association="Self.FK_Players_Players">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Schools" Association="Self.FK_Players_Schools">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StandingsByDay_Teams" Association="Self.FK_StandingsByDay_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="StandingsByDay" EntitySet="StandingsByDays" />
+          </AssociationSet>
+          <AssociationSet Name="PlayersTeams" Association="Self.PlayersTeams">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NBAStatisticsModelStoreContainer" CdmEntityContainer="NBAStatisticsEntities">
+          <EntitySetMapping Name="Arenas">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.Arena">
+              <MappingFragment StoreEntitySet="Arenas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conferences">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.Conference">
+              <MappingFragment StoreEntitySet="Conferences">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HeadCoaches">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.HeadCoach">
+              <MappingFragment StoreEntitySet="HeadCoaches">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.Player">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DisplayFirstLastName" ColumnName="DisplayFirstLastName" />
+                <ScalarProperty Name="DisplayLastCommaFirstName" ColumnName="DisplayLastCommaFirstName" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.School">
+              <MappingFragment StoreEntitySet="Schools">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StandingsByDays">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.StandingsByDay">
+              <MappingFragment StoreEntitySet="StandingsByDay">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+                <ScalarProperty Name="ConferenceId" ColumnName="ConferenceId" />
+                <ScalarProperty Name="Games" ColumnName="Games" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="Loses" ColumnName="Loses" />
+                <ScalarProperty Name="SuccessRate" ColumnName="SuccessRate" />
+                <ScalarProperty Name="HomeRecord" ColumnName="HomeRecord" />
+                <ScalarProperty Name="RoadRecord" ColumnName="RoadRecord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="NBAStatisticsModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+                <ScalarProperty Name="Founded" ColumnName="Founded" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="ArenaId" ColumnName="ArenaId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="HeadCoachId" ColumnName="HeadCoachId" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PlayersTeams" TypeName="NBAStatisticsModel.PlayersTeams" StoreEntitySet="PlayersTeams">
+            <EndProperty Name="Players">
+              <ScalarProperty Name="Id" ColumnName="PlayerId" />
+            </EndProperty>
+            <EndProperty Name="Teams">
+              <ScalarProperty Name="Id" ColumnName="TeamId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
