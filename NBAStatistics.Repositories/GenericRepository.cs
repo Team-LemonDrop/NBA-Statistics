@@ -14,6 +14,11 @@
 
         public GenericRepository(DbContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context), "Must provide a db context!");
+            }
+
             this.Context = context;
         }
 
@@ -30,7 +35,18 @@
 
         public void Delete(TEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
 
+            if (this.Context.Entry(entity).State == EntityState.Detached)
+            {
+                this.Context.Set<TEntity>().Attach(entity);
+            }
+
+            this.Context.Set<TEntity>().Remove(entity);
+            this.Context.SaveChanges();
         }
 
         public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
@@ -51,6 +67,23 @@
         {
             var result = this.Context.Set<TEntity>().Find(id);
             return result;
+        }
+
+        public void Update(TEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            var entry = this.Context.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                this.Context.Set<TEntity>().Attach(entity);
+                entry.State = EntityState.Modified;
+            }
+
+            this.Context.SaveChanges();
         }
     }
 }
