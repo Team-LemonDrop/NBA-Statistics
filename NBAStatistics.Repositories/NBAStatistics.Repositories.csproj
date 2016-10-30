@@ -51,7 +51,10 @@
   <ItemGroup>
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="GenericRepository.cs" />
+    <Compile Include="PlayersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StandingByDayRepository.cs" />
+    <Compile Include="TeamsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NBAStatistics.Data\NBAStatistics.Data.csproj">
