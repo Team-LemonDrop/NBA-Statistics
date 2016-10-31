@@ -1,0 +1,45 @@
+1. Player info: http://stats.nba.com/stats/commonplayerinfo?PlayerID=203076
+
+{
+
+        "PERSON_ID"                     :           203076,                         
+        "FIRST_NAME"                    :           "Anthony",            
+        "LAST_NAME"                     :           "Davis",              
+        "DISPLAY_FIRST_LAST"            :           "Anthony Davis",      
+        "DISPLAY_LAST_COMMA_FIRST"      :           "Davis, Anthony",     
+        "DISPLAY_FI_LAST"               :           "A. Davis",           
+        "BIRTHDATE"                     :           "1993-03-11T00:00:00",
+        "SCHOOL"                        :           "Kentucky",           
+        "COUNTRY"                       :           "USA",                
+        "LAST_AFFILIATION"              :           "Kentucky/USA",       
+        "HEIGHT"                        :           "6-11",               
+        "WEIGHT"                        :           "253",                
+        "SEASON_EXP"                    :           4,                    
+        "JERSEY"                        :           "23",                 
+        "POSITION"                      :           "Forward-Center",     
+        "ROSTERSTATUS"                  :           "Active",             
+        "TEAM_ID"                       :           1610612740,           
+        "TEAM_NAME"                     :           "Pelicans",           
+        "TEAM_ABBREVIATION"             :           "NOP",                
+        "TEAM_CODE"                     :           "pelicans",           
+        "TEAM_CITY"                     :           "New Orleans",        
+        "PLAYERCODE"                    :           "anthony_davis",      
+        "FROM_YEAR"                     :           2012,                 
+        "TO_YEAR"                       :           2016,                 
+        "DLEAGUE_FLAG"                  :           "N",                  
+        "GAMES_PLAYED_FLAG"             :           "Y"       
+}
+
+
+http://stats.nba.com/stats/teams
+
+http://stats.nba.com/stats/commonteaminfo?TeamID=1610612737
+
+2. Team info: http://stats.nba.com/stats/commonteamroster?TeamID=1610612741&Season=2016-17   -> LeagueID=00&
+
+3. Players by league and season : http://stats.nba.com/stats/commonallplayers?IsOnlyCurrentSeason=1&LeagueID=00&Season=2016-17
+
+4. http://stats.nba.com/stats/scoreboard?DayOffset=0&LeagueID=00&gameDate=10%2F28%2F2016 Referer:http://stats.nba.com/scores/
+
+
+http://stats.nba.com/media/img/teams/logos/PHI_logo.svg
