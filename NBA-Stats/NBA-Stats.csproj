@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +51,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -63,6 +66,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionProviders\Contracts\IConnectionProvider.cs" />
+    <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
+    <Compile Include="ConnectionProviders\OleDbConnectionProvider.cs" />
+    <Compile Include="DailyStandings.cs" />
+    <Compile Include="StandingsByDay.cs" />
     <Compile Include="JsonHelpers.cs" />
     <Compile Include="NBAStatsForm.cs">
       <SubType>Form</SubType>

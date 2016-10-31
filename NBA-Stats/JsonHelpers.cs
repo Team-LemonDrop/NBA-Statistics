@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,12 +12,10 @@ namespace NBA_Stats
     {
         public static T CreateFromJsonStream<T>(this Stream stream, Encoding encoding)
         {
-            var serializer = new JsonSerializer();
-
             using (var sr = new StreamReader(stream))
             using (var jsonTextReader = new JsonTextReader(sr))
             {
-                return (T)serializer.Deserialize(jsonTextReader, typeof(T));
+                return JsonSerializer.Create().Deserialize<T>(jsonTextReader);
             }
         }
 
@@ -28,7 +26,7 @@ namespace NBA_Stats
 
         public static T CreateFromJsonString<T>(this String json, Encoding encoding)
         {
-            using (MemoryStream stream = new MemoryStream(encoding.GetBytes(json)))
+            using (var stream = new MemoryStream(encoding.GetBytes(json)))
             {
                 return CreateFromJsonStream<T>(stream, encoding);
             }
@@ -41,7 +39,7 @@ namespace NBA_Stats
 
         public static T CreateFromJsonFile<T>(this String fileName, Encoding encoding)
         {
-            using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+            using (var fileStream = new FileStream(fileName, FileMode.Open))
             {
                 return CreateFromJsonStream<T>(fileStream, encoding);
             }
