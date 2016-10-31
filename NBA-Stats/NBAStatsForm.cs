@@ -27,7 +27,7 @@ namespace NBA_Stats
     {
         private const string SHOOTING_ADDRESS = "http://stats.nba.com/js/data/sportvu/shootingData.js";
         private const string GAMES = "http://stats.nba.com/stats/shotchartdetail?Season=2013-14&SeasonType=Regular+Season&LeagueID=00&TeamID=1610612743&PlayerID=0&GameID=0021300605&Outcome=&Location=&Month=0&SeasonSegment=&DateFrom=&DateTo=&OpponentTeamID=0&VsConference=&VsDivision=&Position=&RookieYear=&GameSegment=&Period=0&LastNGames=0&ContextFilter=&ContextMeasure=FG_PCT&display-mode=performance&zone-mode=zone&zoneOverlays=false&zoneDetails=false&viewShots=true";
-        
+
         private static XmlDocument xmlDoc;
         private static DailyStandings dailyStandings;
         //private static Rootobject rootObj;
@@ -68,90 +68,93 @@ namespace NBA_Stats
                 var options = new Dictionary<string, string>();
                 options["Referer"] = "http://stats.nba.com/scores/";
 
-                // get DailyStandings for last 10 days
-                for (int i = 0; i < 10; i++)
+                await Task.Run(async () =>
                 {
-                    date = date.AddDays(-1);
-
-                    string uriString = dailyStandingsUri + date.ToString("MM-dd-yyyy").Replace("-", "%2F");
-
-                    await GetJsonObjFromNetworkFileAsync(uriString, Encoding.UTF8, options);
-
-                    if (dailyStandings == null)
+                    // get DailyStandings for last 10 days
+                    for (int i = 0; i < 10; i++)
                     {
-                        MessageBox.Show("Daily Standings url does not response with JSON file.");
-                        return;
-                    }
+                        date = date.AddDays(-1);
 
-                    DateTime gameDate = DateTime.ParseExact(
-                        dailyStandings.Parameters.GameDate,
-                        "MM/dd/yyyy",
-                        CultureInfo.InvariantCulture);
+                        string uriString = dailyStandingsUri + date.ToString("MM-dd-yyyy").Replace("-", "%2F");
 
-                    string directoryPath = this.ExeDirectory + "Reports\\" + gameDate.ToString("dd-MMM-yyyy");
-                    Directory.CreateDirectory(directoryPath);
+                        await GetJsonObjFromNetworkFileAsync(uriString, Encoding.UTF8, options);
 
-                    IEnumerable<string> reportsNames = new string[] {
-                    "EastConfStandingsByDay",
-                    "WestConfStandingsByDay" };
-
-                    foreach (var reportName in reportsNames)
-                    {
-                        var xlsPath = $"{directoryPath}\\{reportName}.xls";
-                        var connectionString = OleDbConnectionProvider.GetConnectionString(xlsPath, false);
-
-                        using (var oleDbConnection = new OleDbConnection(connectionString))
+                        if (dailyStandings == null)
                         {
-                            oleDbConnection.Open();
-                            var sheetNames = GetSheetNames(oleDbConnection);
-                            if (sheetNames.Count() != 2)
-                            {
-                                SetSheetNames(reportName, oleDbConnection);
-                            }
+                            MessageBox.Show("Daily Standings url does not response with JSON file.");
+                            return;
+                        }
 
-                            foreach (var resultSet in dailyStandings.ResultSets)
+                        DateTime gameDate = DateTime.ParseExact(
+                            dailyStandings.Parameters.GameDate,
+                            "MM/dd/yyyy",
+                            CultureInfo.InvariantCulture);
+
+                        string directoryPath = this.ExeDirectory + "Reports\\" + gameDate.ToString("dd-MMM-yyyy");
+                        Directory.CreateDirectory(directoryPath);
+
+                        IEnumerable<string> reportsNames = new string[] {
+                            "EastConfStandingsByDay",
+                            "WestConfStandingsByDay" };
+
+                        foreach (var reportName in reportsNames)
+                        {
+                            var xlsPath = $"{directoryPath}\\{reportName}.xls";
+                            var connectionString = OleDbConnectionProvider.GetConnectionString(xlsPath, false);
+
+                            using (var oleDbConnection = new OleDbConnection(connectionString))
                             {
-                                if (resultSet.Name == reportName)
+                                oleDbConnection.Open();
+                                var sheetNames = GetSheetNames(oleDbConnection);
+                                if (sheetNames.Count() != 2)
                                 {
-                                    foreach (var row in resultSet.rowSet)
+                                    SetSheetNames(reportName, oleDbConnection);
+                                }
+
+                                foreach (var resultSet in dailyStandings.ResultSets)
+                                {
+                                    if (resultSet.Name == reportName)
                                     {
-                                        var teamId = (int)(long)row[0];
-                                        var leagueId = (string)row[1];
-                                        var seasonId = int.Parse((string)row[2]);
-                                        var standingsDate = DateTime.ParseExact((string)row[3], "MM/dd/yyyy", CultureInfo.InvariantCulture);
-                                        var conference = (string)row[4];
-                                        var team = (string)row[5];
-                                        var games = (byte)(long)row[6];
-                                        var wins = (byte)(long)row[7];
-                                        var losses = (byte)(long)row[8];
-                                        var winningsPercentage = (float)(double)row[9];
-                                        var homeRecord = (string)row[10]; //byte.Parse(((string)row[10]).Split(new char[] { '-' })[0]);
-                                        var roadRecord = (string)row[11]; //byte.Parse(((string)row[11]).Split(new char[] { '-' })[0]);
+                                        foreach (var row in resultSet.rowSet)
+                                        {
+                                            var teamId = (int)(long)row[0];
+                                            var leagueId = (string)row[1];
+                                            var seasonId = int.Parse((string)row[2]);
+                                            var standingsDate = DateTime.ParseExact((string)row[3], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                            var conference = (string)row[4];
+                                            var team = (string)row[5];
+                                            var games = (byte)(long)row[6];
+                                            var wins = (byte)(long)row[7];
+                                            var losses = (byte)(long)row[8];
+                                            var winningsPercentage = (float)(double)row[9];
+                                            var homeRecord = (string)row[10]; //byte.Parse(((string)row[10]).Split(new char[] { '-' })[0]);
+                                            var roadRecord = (string)row[11]; //byte.Parse(((string)row[11]).Split(new char[] { '-' })[0]);
 
-                                        var cmd = new OleDbCommand(
-                                            $"INSERT INTO [{resultSet.Name}] VALUES (@TEAM_ID, @LEAGUE_ID, @SEASON_ID, @STANDINGSDATE, @CONFERENCE, @TEAM, @G, @W, @L, @W_PCT, @HOME_RECORD, @ROAD_RECORD)",
-                                            oleDbConnection);
+                                            var cmd = new OleDbCommand(
+                                                $"INSERT INTO [{resultSet.Name}] VALUES (@TEAM_ID, @LEAGUE_ID, @SEASON_ID, @STANDINGSDATE, @CONFERENCE, @TEAM, @G, @W, @L, @W_PCT, @HOME_RECORD, @ROAD_RECORD)",
+                                                oleDbConnection);
 
-                                        cmd.Parameters.AddWithValue("@TEAM_ID", teamId);
-                                        cmd.Parameters.AddWithValue("@LEAGUE_ID", leagueId);
-                                        cmd.Parameters.AddWithValue("@SEASON_ID", seasonId);
-                                        cmd.Parameters.AddWithValue("@STANDINGSDATE", standingsDate);
-                                        cmd.Parameters.AddWithValue("@CONFERENCE", conference);
-                                        cmd.Parameters.AddWithValue("@TEAM", team);
-                                        cmd.Parameters.AddWithValue("@G", games);
-                                        cmd.Parameters.AddWithValue("@W", wins);
-                                        cmd.Parameters.AddWithValue("@L", losses);
-                                        cmd.Parameters.AddWithValue("@W_PCT", winningsPercentage);
-                                        cmd.Parameters.AddWithValue("@HOME_RECORD", homeRecord);
-                                        cmd.Parameters.AddWithValue("@ROAD_RECORD", roadRecord);
+                                            cmd.Parameters.AddWithValue("@TEAM_ID", teamId);
+                                            cmd.Parameters.AddWithValue("@LEAGUE_ID", leagueId);
+                                            cmd.Parameters.AddWithValue("@SEASON_ID", seasonId);
+                                            cmd.Parameters.AddWithValue("@STANDINGSDATE", standingsDate);
+                                            cmd.Parameters.AddWithValue("@CONFERENCE", conference);
+                                            cmd.Parameters.AddWithValue("@TEAM", team);
+                                            cmd.Parameters.AddWithValue("@G", games);
+                                            cmd.Parameters.AddWithValue("@W", wins);
+                                            cmd.Parameters.AddWithValue("@L", losses);
+                                            cmd.Parameters.AddWithValue("@W_PCT", winningsPercentage);
+                                            cmd.Parameters.AddWithValue("@HOME_RECORD", homeRecord);
+                                            cmd.Parameters.AddWithValue("@ROAD_RECORD", roadRecord);
 
-                                        cmd.ExecuteNonQuery();
+                                            cmd.ExecuteNonQuery();
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }                
+                });
 
                 ZipFile.CreateFromDirectory(directoryWithReportsPath, zipPath);
 
@@ -232,18 +235,12 @@ namespace NBA_Stats
 
                 using (Stream stream = await webClient.OpenReadTaskAsync(address))
                 {
-                    //jsonObject = GetJsonObject(stream);
-                    dailyStandings = stream.CreateFromJsonStream<DailyStandings>(Encoding.UTF8);
-                    //rootObj = stream.CreateFromJsonStream<Rootobject>(Encoding.UTF8);
-
-                    //// Just loop
-                    //long ctr = 0;
-                    //for (ctr = 0; ctr <= 10000000000; ctr++)
-                    //{ }
-
-                    //MessageBox.Show("Finished");
-
-                    Thread.Sleep(1000);
+                    await Task.Run(() =>
+                    {
+                        //jsonObject = GetJsonObject(stream);
+                        dailyStandings = stream.CreateFromJsonStream<DailyStandings>(Encoding.UTF8);
+                        //rootObj = stream.CreateFromJsonStream<Rootobject>(Encoding.UTF8);
+                    });
                 }
             }
             catch (Exception)
@@ -270,6 +267,16 @@ namespace NBA_Stats
                 //string tmp = sr.ReadToEnd();
                 return (JObject)serializer.Deserialize(jsonTextReader);
             }
+        }
+
+        private void btnFillMongoDb_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnImportZipDataToSqlServer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
