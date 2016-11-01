@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data", "NBASt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Repositories", "NBAStatistics.Repositories\NBAStatistics.Repositories.csproj", "{75B3B12B-7277-4154-B3C1-B7C93032B867}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Models", "NBAStatistics.Models\NBAStatistics.Models.csproj", "{1E1A8AB8-52E4-4089-8675-0F50804F3441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{75B3B12B-7277-4154-B3C1-B7C93032B867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75B3B12B-7277-4154-B3C1-B7C93032B867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75B3B12B-7277-4154-B3C1-B7C93032B867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E1A8AB8-52E4-4089-8675-0F50804F3441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E1A8AB8-52E4-4089-8675-0F50804F3441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E1A8AB8-52E4-4089-8675-0F50804F3441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E1A8AB8-52E4-4089-8675-0F50804F3441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
