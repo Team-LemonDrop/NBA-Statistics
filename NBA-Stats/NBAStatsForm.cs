@@ -20,6 +20,7 @@ using System.Data.OleDb;
 using NBA_Stats.ConnectionProviders;
 using System.Globalization;
 using System.IO.Compression;
+using NBAStatistics.Models.Models.Json;
 
 namespace NBA_Stats
 {
@@ -29,8 +30,6 @@ namespace NBA_Stats
         private const string GAMES = "http://stats.nba.com/stats/shotchartdetail?Season=2013-14&SeasonType=Regular+Season&LeagueID=00&TeamID=1610612743&PlayerID=0&GameID=0021300605&Outcome=&Location=&Month=0&SeasonSegment=&DateFrom=&DateTo=&OpponentTeamID=0&VsConference=&VsDivision=&Position=&RookieYear=&GameSegment=&Period=0&LastNGames=0&ContextFilter=&ContextMeasure=FG_PCT&display-mode=performance&zone-mode=zone&zoneOverlays=false&zoneDetails=false&viewShots=true";
 
         private static XmlDocument xmlDoc;
-        private static DailyStandings dailyStandings;
-        //private static Rootobject rootObj;
 
         private readonly string ExeDirectory;
 
@@ -43,18 +42,20 @@ namespace NBA_Stats
 
         private async void btnGenerateZipFile_Click(object sender, EventArgs e)
         {
-            const string dailyStandingsUri = "http://stats.nba.com/stats/scoreboard?DayOffset=0&LeagueID=00&gameDate=";
+            this.btnGenerateZipFile.Enabled = false;
+
+            const string DailyStandingsUri = "http://stats.nba.com/stats/scoreboard?DayOffset=0&LeagueID=00&gameDate=";
 
             DateTime date = DateTime.Now;
 
             try
             {
-                string directoryWithReportsPath = $"{this.ExeDirectory}Reports";
+                string directoryWithReports = $"{this.ExeDirectory}Reports\\";
                 string zipPath = $"{this.ExeDirectory}reports.zip";
 
-                if (Directory.Exists(directoryWithReportsPath))
+                if (Directory.Exists(directoryWithReports))
                 {
-                    Directory.Delete(directoryWithReportsPath, true);
+                    Directory.Delete(directoryWithReports, true);
                 }
 
                 if (File.Exists(zipPath))
@@ -63,22 +64,31 @@ namespace NBA_Stats
                 }
 
                 // If the directory already exists, this method does not create a new directory
-                DirectoryInfo di = Directory.CreateDirectory(directoryWithReportsPath);
+                DirectoryInfo di = Directory.CreateDirectory(directoryWithReports);
 
                 var options = new Dictionary<string, string>();
                 options["Referer"] = "http://stats.nba.com/scores/";
 
+                var tasks = new List<Task<DailyStandings>>();
+
+                int numberOfFiles = 10;
+                for (int i = 0; i < numberOfFiles; i++)
+                {
+                    date = date.AddDays(-1);
+
+                    string uriString = DailyStandingsUri + date.ToString("MM-dd-yyyy").Replace("-", "%2F");
+
+                    // random delay to simulate human requests and prevent blocking of 
+                    // our IP address from server
+                    int secondsToDelay = RandomProvider.Instance.Next(0, numberOfFiles);
+
+                    tasks.Add(GetJsonObjFromNetworkFileAsync<DailyStandings>(uriString, Encoding.UTF8, options, secondsToDelay));
+                }
+
                 await Task.Run(async () =>
                 {
-                    // get DailyStandings for last 10 days
-                    for (int i = 0; i < 10; i++)
+                    foreach (var dailyStandings in await Task.WhenAll(tasks))
                     {
-                        date = date.AddDays(-1);
-
-                        string uriString = dailyStandingsUri + date.ToString("MM-dd-yyyy").Replace("-", "%2F");
-
-                        await GetJsonObjFromNetworkFileAsync(uriString, Encoding.UTF8, options);
-
                         if (dailyStandings == null)
                         {
                             MessageBox.Show("Daily Standings url does not response with JSON file.");
@@ -86,11 +96,11 @@ namespace NBA_Stats
                         }
 
                         DateTime gameDate = DateTime.ParseExact(
-                            dailyStandings.Parameters.GameDate,
-                            "MM/dd/yyyy",
-                            CultureInfo.InvariantCulture);
+                                dailyStandings.Parameters.GameDate,
+                                "MM/dd/yyyy",
+                                CultureInfo.InvariantCulture);
 
-                        string directoryPath = this.ExeDirectory + "Reports\\" + gameDate.ToString("dd-MMM-yyyy");
+                        string directoryPath = directoryWithReports + gameDate.ToString("dd-MMM-yyyy");
                         Directory.CreateDirectory(directoryPath);
 
                         IEnumerable<string> reportsNames = new string[] {
@@ -113,9 +123,9 @@ namespace NBA_Stats
 
                                 foreach (var resultSet in dailyStandings.ResultSets)
                                 {
-                                    if (resultSet.Name == reportName)
+                                    foreach (var row in resultSet.RowSet)
                                     {
-                                        foreach (var row in resultSet.rowSet)
+                                        if (resultSet.Name == reportName)
                                         {
                                             var teamId = (int)(long)row[0];
                                             var leagueId = (string)row[1];
@@ -127,8 +137,8 @@ namespace NBA_Stats
                                             var wins = (byte)(long)row[7];
                                             var losses = (byte)(long)row[8];
                                             var winningsPercentage = (float)(double)row[9];
-                                            var homeRecord = (string)row[10]; //byte.Parse(((string)row[10]).Split(new char[] { '-' })[0]);
-                                            var roadRecord = (string)row[11]; //byte.Parse(((string)row[11]).Split(new char[] { '-' })[0]);
+                                            var homeRecord = (string)row[10];
+                                            var roadRecord = (string)row[11];
 
                                             var cmd = new OleDbCommand(
                                                 $"INSERT INTO [{resultSet.Name}] VALUES (@TEAM_ID, @LEAGUE_ID, @SEASON_ID, @STANDINGSDATE, @CONFERENCE, @TEAM, @G, @W, @L, @W_PCT, @HOME_RECORD, @ROAD_RECORD)",
@@ -151,26 +161,32 @@ namespace NBA_Stats
                                         }
                                     }
                                 }
+
+                                oleDbConnection.Close();
                             }
+
+                            // Force clean up to release file handles
+                            // http://stackoverflow.com/questions/2225087/the-process-cannot-access-the-file-because-it-is-being-used-by-another-process
+                            GC.Collect();
                         }
                     }
                 });
 
-                ZipFile.CreateFromDirectory(directoryWithReportsPath, zipPath);
+                ZipFile.CreateFromDirectory(directoryWithReports, zipPath);
 
-                // delete Reports directory
-                di.Delete(true);
+                Directory.Delete(directoryWithReports, true);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            this.btnGenerateZipFile.Enabled = true;
         }
 
         private static IEnumerable<string> GetSheetNames(OleDbConnection oleDbConnection)
         {
             DataTable sheets = oleDbConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-
             ICollection<string> documentSheets = new List<string>();
 
             foreach (DataRow row in sheets.Rows)
@@ -216,10 +232,11 @@ namespace NBA_Stats
             }
         }
 
-        private async Task GetJsonObjFromNetworkFileAsync(
+        private async Task<T> GetJsonObjFromNetworkFileAsync<T>(
             string uriString,
             Encoding encoding,
-            IEnumerable options)
+            IEnumerable options,
+            int secondsToDelay)
         {
             try
             {
@@ -233,19 +250,18 @@ namespace NBA_Stats
                     webClient.Headers.Add(kvp.Key, kvp.Value);
                 }
 
+                // delay to simulate human requests and prevent blocking of 
+                // our IP address from server
+                await Task.Delay(secondsToDelay * 1000);
+
                 using (Stream stream = await webClient.OpenReadTaskAsync(address))
                 {
-                    await Task.Run(() =>
-                    {
-                        //jsonObject = GetJsonObject(stream);
-                        dailyStandings = stream.CreateFromJsonStream<DailyStandings>(Encoding.UTF8);
-                        //rootObj = stream.CreateFromJsonStream<Rootobject>(Encoding.UTF8);
-                    });
+                    return stream.CreateFromJsonStream<T>(Encoding.UTF8);
                 }
             }
             catch (Exception)
             {
-                dailyStandings = null;
+                return default(T);
             }
         }
 
@@ -269,9 +285,114 @@ namespace NBA_Stats
             }
         }
 
-        private void btnFillMongoDb_Click(object sender, EventArgs e)
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
+        }
+
+        private async void btnFillMongoDb_Click(object sender, EventArgs e)
+        {
+            this.btnFillMongoDb.Enabled = false;
+
+            const string TeamUri = "http://stats.nba.com/stats/commonteamroster?";
+
+            try
+            {
+                uint team_Id = 1610612741;
+                var seasonStr = "2016-17";
+
+                var options = new Dictionary<string, string>();
+
+                var tasks = new List<Task<TeamInfo>>();                
+
+                int numberOfTeams = 30;
+                for (int i = 0; i < numberOfTeams; i++)
+                {
+                    string uriString = $"{TeamUri}TeamID={team_Id}&Season={seasonStr}";
+
+                    // random delay to simulate human requests and prevent blocking of 
+                    // our IP address from server
+                    int secondsToDelay = RandomProvider.Instance.Next(0, numberOfTeams);
+
+                    tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, secondsToDelay / 3));
+                }
+
+                await Task.Run(async () =>
+                {
+                    foreach (var teamInfo in await Task.WhenAll(tasks))
+                    {
+                        if (teamInfo == null)
+                        {
+                            MessageBox.Show("TeamInfo url does not response with JSON file.");
+                            return;
+                        }
+
+                        foreach (var resultSet in teamInfo.ResultSets)
+                        {
+                            if (resultSet.Name == "CommonTeamRoster")
+                            {
+                                foreach (var row in resultSet.RowSet)
+                                {
+                                    var teamId = (int)(long)row[0];
+                                    var season = (string)row[1];
+                                    var leagueId = (string)row[2];
+                                    var player = (string)row[3];
+                                    var num = (string)row[4];
+                                    var position = (string)row[5];
+                                    var height = (string)row[6];
+                                    var weight = (string)row[7];
+                                    var birthDate = (string)row[8];
+                                    var age = (double)row[9];
+                                    var exp = (string)row[10];
+                                    var school = (string)row[11];
+                                    var playerId = (int)(long)row[12];
+
+                                    // TODO: fill MongoDB
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            this.btnFillMongoDb.Enabled = true;
         }
 
         private void btnImportZipDataToSqlServer_Click(object sender, EventArgs e)

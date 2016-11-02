@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<seasons>
+  <season id="2016-17">
+    <teams>
+      <team id="1610612737" name="Atlanta Hawks" />
+      <team id="1610612738" name="Boston Celtics" />
+      <team id="1610612751" name="Brooklyn Nets" />
+      <team id="1610612766" name="Charlotte Hornets" />
+      <team id="1610612741" name="Chicago Bulls" />
+      <team id="1610612739" name="Cleveland Cavaliers" />
+      <team id="1610612742" name="Dallas Mavericks" />
+      <team id="1610612743" name="Denver Nuggets" />
+      <team id="1610612765" name="Detroit Pistons" />
+      <team id="1610612744" name="Golden State Warriors" />
+      <team id="1610612745" name="Houston Rockets" />
+      <team id="1610612754" name="Indiana Pacers" />
+      <team id="1610612746" name="LA Clippers" />
+      <team id="1610612747" name="Los Angeles Lakers" />
+      <team id="1610612763" name="Memphis Grizzlies" />
+      <team id="1610612748" name="Miami Heat" />
+      <team id="1610612749" name="Milwaukee Bucks" />
+      <team id="1610612750" name="Minnesota Timberwolves" />
+      <team id="1610612740" name="New Orleans Pelicans" />
+      <team id="1610612752" name="New York Knicks" />
+      <team id="1610612760" name="Oklahoma City Thunder" />
+      <team id="1610612753" name="Orlando Magic" />
+      <team id="1610612755" name="Philadelphia 76ers" />
+      <team id="1610612756" name="Phoenix Suns" />
+      <team id="1610612757" name="Portland Trail Blazers" />
+      <team id="1610612758" name="Sacramento Kings" />
+      <team id="1610612759" name="San Antonio Spurs" />
+      <team id="1610612761" name="Toronto Raptors" />
+      <team id="1610612762" name="Utah Jazz" />
+      <team id="1610612764" name="Washington Wizards" />
+    </teams>
+  </season>
+</seasons>
