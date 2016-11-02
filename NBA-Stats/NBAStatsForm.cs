@@ -14,13 +14,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-using NBAStatistics.Data.Models;
+using NBAStatistics.Models;
 using System.Collections;
 using System.Data.OleDb;
 using NBA_Stats.ConnectionProviders;
 using System.Globalization;
 using System.IO.Compression;
 using NBAStatistics.Models.Models.Json;
+using NBAStatistics.Data;
+using System.Data.Entity;
+using NBAStatistics.Data.Migrations;
 
 namespace NBA_Stats
 {
@@ -336,7 +339,7 @@ namespace NBA_Stats
 
                 var options = new Dictionary<string, string>();
 
-                var tasks = new List<Task<TeamInfo>>();                
+                var tasks = new List<Task<TeamInfo>>();
 
                 int numberOfTeams = 30;
                 for (int i = 0; i < numberOfTeams; i++)
@@ -398,6 +401,19 @@ namespace NBA_Stats
         private void btnImportZipDataToSqlServer_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dbContext = new NBAStatisticsContext();
+                MessageBox.Show(dbContext.Players.Count().ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ex " + ex.Message);
+            }
         }
     }
 }
