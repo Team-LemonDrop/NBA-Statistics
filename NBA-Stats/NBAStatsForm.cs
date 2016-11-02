@@ -20,6 +20,7 @@ using System.Data.OleDb;
 using NBA_Stats.ConnectionProviders;
 using System.Globalization;
 using System.IO.Compression;
+using NBAStatistics.Models.Models.Json;
 
 namespace NBA_Stats
 {
@@ -43,7 +44,7 @@ namespace NBA_Stats
         {
             this.btnGenerateZipFile.Enabled = false;
 
-            const string dailyStandingsUri = "http://stats.nba.com/stats/scoreboard?DayOffset=0&LeagueID=00&gameDate=";
+            const string DailyStandingsUri = "http://stats.nba.com/stats/scoreboard?DayOffset=0&LeagueID=00&gameDate=";
 
             DateTime date = DateTime.Now;
 
@@ -75,7 +76,7 @@ namespace NBA_Stats
                 {
                     date = date.AddDays(-1);
 
-                    string uriString = dailyStandingsUri + date.ToString("MM-dd-yyyy").Replace("-", "%2F");
+                    string uriString = DailyStandingsUri + date.ToString("MM-dd-yyyy").Replace("-", "%2F");
 
                     // random delay to simulate human requests and prevent blocking of 
                     // our IP address from server
@@ -122,9 +123,9 @@ namespace NBA_Stats
 
                                 foreach (var resultSet in dailyStandings.ResultSets)
                                 {
-                                    if (resultSet.Name == reportName)
+                                    foreach (var row in resultSet.RowSet)
                                     {
-                                        foreach (var row in resultSet.rowSet)
+                                        if (resultSet.Name == reportName)
                                         {
                                             var teamId = (int)(long)row[0];
                                             var leagueId = (string)row[1];
@@ -322,9 +323,76 @@ namespace NBA_Stats
             }
         }
 
-        private void btnFillMongoDb_Click(object sender, EventArgs e)
+        private async void btnFillMongoDb_Click(object sender, EventArgs e)
         {
+            this.btnFillMongoDb.Enabled = false;
 
+            const string TeamUri = "http://stats.nba.com/stats/commonteamroster?";
+
+            try
+            {
+                uint team_Id = 1610612741;
+                var seasonStr = "2016-17";
+
+                var options = new Dictionary<string, string>();
+
+                var tasks = new List<Task<TeamInfo>>();                
+
+                int numberOfTeams = 30;
+                for (int i = 0; i < numberOfTeams; i++)
+                {
+                    string uriString = $"{TeamUri}TeamID={team_Id}&Season={seasonStr}";
+
+                    // random delay to simulate human requests and prevent blocking of 
+                    // our IP address from server
+                    int secondsToDelay = RandomProvider.Instance.Next(0, numberOfTeams);
+
+                    tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, secondsToDelay / 3));
+                }
+
+                await Task.Run(async () =>
+                {
+                    foreach (var teamInfo in await Task.WhenAll(tasks))
+                    {
+                        if (teamInfo == null)
+                        {
+                            MessageBox.Show("TeamInfo url does not response with JSON file.");
+                            return;
+                        }
+
+                        foreach (var resultSet in teamInfo.ResultSets)
+                        {
+                            if (resultSet.Name == "CommonTeamRoster")
+                            {
+                                foreach (var row in resultSet.RowSet)
+                                {
+                                    var teamId = (int)(long)row[0];
+                                    var season = (string)row[1];
+                                    var leagueId = (string)row[2];
+                                    var player = (string)row[3];
+                                    var num = (string)row[4];
+                                    var position = (string)row[5];
+                                    var height = (string)row[6];
+                                    var weight = (string)row[7];
+                                    var birthDate = (string)row[8];
+                                    var age = (double)row[9];
+                                    var exp = (string)row[10];
+                                    var school = (string)row[11];
+                                    var playerId = (int)(long)row[12];
+
+                                    // TODO: fill MongoDB
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            this.btnFillMongoDb.Enabled = true;
         }
 
         private void btnImportZipDataToSqlServer_Click(object sender, EventArgs e)
