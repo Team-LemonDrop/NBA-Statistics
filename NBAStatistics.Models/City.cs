@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NBAStatistics.Models
 {
@@ -17,6 +18,8 @@ namespace NBAStatistics.Models
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         public int? CountryId { get; set; }

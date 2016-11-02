@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBAStatistics.Models
 {
@@ -14,33 +16,27 @@ namespace NBAStatistics.Models
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string FirstName { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string LastName { get; set; }
 
-        public string DisplayFirstLastName { get; set; }
+        [NotMapped]
+        public string FirstLastName => $"{this.FirstName} {this.LastName}";
 
-        public string DisplayLastCommaFirstName { get; set; }
+        [NotMapped]
+        public string LastCommaFirstName => $"{this.LastName}, {this.FirstName}";
 
-        public DateTime? Birthday { get; set; }
-
-        public int CityId { get; set; }
-
-        public virtual City City { get; set; }
-
-        public int SchoolId { get; set; }
-
-        public virtual School School { get; set; }
-
-        public double Height { get; set; }
-
-        public double Weight { get; set; }
+        public PlayerInfo AdditionalInfo { get; set; }
 
         public string Position { get; set; }
 
-        public int? TeamId { get; set; }
-
         public bool? IsActive { get; set; }
+
+        public int? TeamId { get; set; }
 
         public virtual Team Team { get; set; }
 

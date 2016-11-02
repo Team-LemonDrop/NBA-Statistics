@@ -1,13 +1,16 @@
-﻿namespace NBAStatistics.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NBAStatistics.Models
 {
     public class Image
     {
         public int Id { get; set; }
 
+        [Required]
         public byte[] Content { get; set; }
 
-        public string FileName { get; set; }
-
-        public string Type { get; set; }
+        [Required]
+        [MaxLength(10)]
+        public string Extension { get; set; }
     }
 }
