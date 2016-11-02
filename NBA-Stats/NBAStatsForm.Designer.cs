@@ -31,6 +31,7 @@
             this.btnGenerateZipFile = new System.Windows.Forms.Button();
             this.btnFillMongoDb = new System.Windows.Forms.Button();
             this.btnImportZipDataToSqlServer = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGenerateZipFile
@@ -64,11 +65,22 @@
             this.btnImportZipDataToSqlServer.UseVisualStyleBackColor = true;
             this.btnImportZipDataToSqlServer.Click += new System.EventHandler(this.btnImportZipDataToSqlServer_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(64, 211);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // NBAStatsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(663, 402);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnImportZipDataToSqlServer);
             this.Controls.Add(this.btnFillMongoDb);
             this.Controls.Add(this.btnGenerateZipFile);
@@ -83,6 +95,7 @@
         private System.Windows.Forms.Button btnGenerateZipFile;
         private System.Windows.Forms.Button btnFillMongoDb;
         private System.Windows.Forms.Button btnImportZipDataToSqlServer;
+        private System.Windows.Forms.Button button1;
     }
 }
 
