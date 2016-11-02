@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\DailyStandings.cs" />
-    <Compile Include="Models\DailyStandingsParameters.cs" />
-    <Compile Include="Models\Resultset.cs" />
-    <Compile Include="Models\TeamInfo.cs" />
-    <Compile Include="Models\TeamInfoParameters.cs" />
+    <Compile Include="Models.Json\DailyStandings.cs" />
+    <Compile Include="Models.Json\DailyStandingsParameters.cs" />
+    <Compile Include="Models.Json\Resultset.cs" />
+    <Compile Include="Models.Json\TeamInfo.cs" />
+    <Compile Include="Models.Json\TeamInfoParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

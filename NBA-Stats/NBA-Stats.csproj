@@ -69,7 +69,7 @@
     <Compile Include="ConnectionProviders\Contracts\IConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\OleDbConnectionProvider.cs" />
-    <Compile Include="DailyStandings.cs" />
+    <Compile Include="RandomProvider.cs" />
     <Compile Include="StandingsByDay.cs" />
     <Compile Include="JsonHelpers.cs" />
     <Compile Include="NBAStatsForm.cs">
@@ -111,11 +111,19 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="teams-by-season.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NBAStatistics.Data\NBAStatistics.Data.csproj">
       <Project>{ff3fc613-ee7c-4c63-88b3-e68579183526}</Project>
       <Name>NBAStatistics.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NBAStatistics.Models\NBAStatistics.Models.csproj">
+      <Project>{83ca476f-c0ea-4ce9-9878-b38f5ccaac28}</Project>
+      <Name>NBAStatistics.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

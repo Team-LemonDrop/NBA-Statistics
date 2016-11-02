@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NBAStatistics.Models.Models
+namespace NBAStatistics.Models.Models.Json
 {
     public class TeamInfoParameters
     {
