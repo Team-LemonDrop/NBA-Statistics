@@ -55,6 +55,7 @@
             // 
             // btnImportZipDataToSqlServer
             // 
+            this.btnImportZipDataToSqlServer.Enabled = false;
             this.btnImportZipDataToSqlServer.Location = new System.Drawing.Point(64, 155);
             this.btnImportZipDataToSqlServer.Name = "btnImportZipDataToSqlServer";
             this.btnImportZipDataToSqlServer.Size = new System.Drawing.Size(195, 23);

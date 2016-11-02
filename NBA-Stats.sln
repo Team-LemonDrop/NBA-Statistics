@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data", "NBASt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Repositories", "NBAStatistics.Repositories\NBAStatistics.Repositories.csproj", "{75B3B12B-7277-4154-B3C1-B7C93032B867}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Models", "NBAStatistics.Models\NBAStatistics.Models.csproj", "{83CA476F-C0EA-4CE9-9878-B38F5CCAAC28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data.FillMongoDB", "NBAStatistics.Data.FillMongoDB\NBAStatistics.Data.FillMongoDB.csproj", "{6C2F92A4-FBFF-4E78-B5AC-FDEAF45D5219}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data.FillSQLiteDB", "NBAStatistics.Data.FillSQLiteDB\NBAStatistics.Data.FillSQLiteDB.csproj", "{CD81E9A4-2E77-41AA-B9CB-A2FEA9C3583C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{75B3B12B-7277-4154-B3C1-B7C93032B867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75B3B12B-7277-4154-B3C1-B7C93032B867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75B3B12B-7277-4154-B3C1-B7C93032B867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83CA476F-C0EA-4CE9-9878-B38F5CCAAC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CA476F-C0EA-4CE9-9878-B38F5CCAAC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CA476F-C0EA-4CE9-9878-B38F5CCAAC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CA476F-C0EA-4CE9-9878-B38F5CCAAC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C2F92A4-FBFF-4E78-B5AC-FDEAF45D5219}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C2F92A4-FBFF-4E78-B5AC-FDEAF45D5219}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C2F92A4-FBFF-4E78-B5AC-FDEAF45D5219}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C2F92A4-FBFF-4E78-B5AC-FDEAF45D5219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD81E9A4-2E77-41AA-B9CB-A2FEA9C3583C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD81E9A4-2E77-41AA-B9CB-A2FEA9C3583C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD81E9A4-2E77-41AA-B9CB-A2FEA9C3583C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD81E9A4-2E77-41AA-B9CB-A2FEA9C3583C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
