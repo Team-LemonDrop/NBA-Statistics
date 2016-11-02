@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,6 +31,14 @@ namespace NBAStatistics.Models
 
         public PlayerInfo AdditionalInfo { get; set; }
 
+        public int CityId { get; set; }
+
+        public virtual City City { get; set; }
+
+        public int SchoolId { get; set; }
+
+        public virtual School School { get; set; }
+
         public string Position { get; set; }
 
         public bool? IsActive { get; set; }
@@ -40,10 +47,10 @@ namespace NBAStatistics.Models
 
         public virtual Team Team { get; set; }
 
-        public virtual ICollection<Team> Teams
-        {
-            get { return this.teams; }
-            set { this.teams = value; }
-        }
+        //public virtual ICollection<Team> Teams
+        //{
+        //    get { return this.teams; }
+        //    set { this.teams = value; }
+        //}
     }
 }

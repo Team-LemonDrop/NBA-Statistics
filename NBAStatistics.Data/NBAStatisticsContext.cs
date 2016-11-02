@@ -5,7 +5,7 @@ using NBAStatistics.Models;
 
 namespace NBAStatistics.Data
 {
-    public class NBAStatisticsContext : DbContext
+    public class NBAStatisticsContext : DbContext, INBAStatisticsContext
     {
         public NBAStatisticsContext()
             : base("name=NBAStatisticsConnection")
@@ -30,5 +30,20 @@ namespace NBAStatistics.Data
         public IDbSet<StandingsByDay> StandingsByDays { get; set; }
 
         public IDbSet<Team> Teams { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public new IDbSet<T> Set<T>() where T : class
+        {
+            return base.Set<T>();
+        }
+
+        public new int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
     }
 }

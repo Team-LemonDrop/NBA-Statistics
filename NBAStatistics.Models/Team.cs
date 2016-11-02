@@ -8,13 +8,13 @@ namespace NBAStatistics.Models
     {
         private ICollection<StandingsByDay> standingsByDays;
         private ICollection<Player> players;
-        private ICollection<Player> oldPlayers;
+        //private ICollection<Player> oldPlayers;
 
         public Team()
         {
             this.players = new HashSet<Player>();
             this.standingsByDays = new HashSet<StandingsByDay>();
-            this.oldPlayers = new HashSet<Player>();
+            //this.oldPlayers = new HashSet<Player>();
         }
 
         public int Id { get; set; }
@@ -32,13 +32,9 @@ namespace NBAStatistics.Models
 
         public virtual City City { get; set; }
 
-        //public int? ArenaId { get; set; }
+        public virtual Arena Arena { get; set; }
 
-        //public virtual Arena Arena { get; set; }
-
-        //public int HeadCoachId { get; set; }
-
-        //public virtual HeadCoach HeadCoach { get; set; }
+        public virtual HeadCoach HeadCoach { get; set; }
 
         public Image Logo { get; set; }
 
@@ -54,10 +50,10 @@ namespace NBAStatistics.Models
             set { this.standingsByDays = value; }
         }
 
-        public virtual ICollection<Player> OldPlayers
-        {
-            get { return this.oldPlayers; }
-            set { this.oldPlayers = value; }
-        }
+        //public virtual ICollection<Player> OldPlayers
+        //{
+        //    get { return this.oldPlayers; }
+        //    set { this.oldPlayers = value; }
+        //}
     }
 }

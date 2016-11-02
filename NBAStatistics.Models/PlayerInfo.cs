@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBAStatistics.Models
 {
+    [ComplexType]
     public class PlayerInfo
     {
         public int Id { get; set; }
@@ -16,14 +17,6 @@ namespace NBAStatistics.Models
         [Column("Weight")]
         public double Weight { get; set; }
 
-        [Column("CityId")]
-        public int CityId { get; set; }
-
-        public virtual City City { get; set; }
-
-        [Column("SchoolId")]
-        public int SchoolId { get; set; }
-
-        public virtual School School { get; set; }
+        
     }
 }
