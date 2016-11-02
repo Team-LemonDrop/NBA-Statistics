@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NBAStatistics.Models
 {
@@ -18,8 +19,11 @@ namespace NBAStatistics.Models
 
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
+        [MaxLength(20)]
         public string Abbreviation { get; set; }
 
         public DateTime Founded { get; set; }
@@ -28,13 +32,13 @@ namespace NBAStatistics.Models
 
         public virtual City City { get; set; }
 
-        public int? ArenaId { get; set; }
+        //public int? ArenaId { get; set; }
 
-        public virtual Arena Arena { get; set; }
+        //public virtual Arena Arena { get; set; }
 
-        public int HeadCoachId { get; set; }
+        //public int HeadCoachId { get; set; }
 
-        public virtual HeadCoach HeadCoach { get; set; }
+        //public virtual HeadCoach HeadCoach { get; set; }
 
         public Image Logo { get; set; }
 

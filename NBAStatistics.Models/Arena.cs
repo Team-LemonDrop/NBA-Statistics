@@ -12,6 +12,6 @@ namespace NBAStatistics.Models
 
         public int? Capacity { get; set; }
 
-        public virtual Team Team { get; set; }
+        //public virtual Team Team { get; set; }
     }
 }

@@ -5,6 +5,8 @@ namespace NBAStatistics.Models
 {
     public class PlayerInfo
     {
+        public int Id { get; set; }
+
         [Column("Birthday")]
         public DateTime? Birthday { get; set; }
 
