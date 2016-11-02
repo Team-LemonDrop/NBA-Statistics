@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-
+using System.Data.Entity.Infrastructure;
 using NBAStatistics.Models;
 
 namespace NBAStatistics.Data
@@ -25,6 +25,8 @@ namespace NBAStatistics.Data
         IDbSet<Team> Teams { get; set; }
 
         IDbSet<T> Set<T>() where T : class;
+
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
         int SaveChanges();
     }
