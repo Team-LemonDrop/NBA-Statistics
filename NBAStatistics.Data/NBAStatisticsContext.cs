@@ -30,5 +30,10 @@ namespace NBAStatistics.Data
         public IDbSet<StandingsByDay> StandingsByDays { get; set; }
 
         public IDbSet<Team> Teams { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

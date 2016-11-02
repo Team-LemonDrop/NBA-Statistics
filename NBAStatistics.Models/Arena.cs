@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBAStatistics.Models
 {
     public class Arena
     {
+        [ForeignKey("Team")]
         public int Id { get; set; }
 
         [Required]
@@ -12,6 +14,6 @@ namespace NBAStatistics.Models
 
         public int? Capacity { get; set; }
 
-        //public virtual Team Team { get; set; }
+        public virtual Team Team { get; set; }
     }
 }
