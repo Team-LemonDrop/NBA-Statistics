@@ -1,16 +1,18 @@
-﻿namespace NBAStatistics.Data.Repositories
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+
+using NBAStatistics.Data.Repositories.Contracts;
+
+namespace NBAStatistics.Data.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-
-    using Contracts;
-
     public class GenericRepository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        private readonly INBAStatisticsContext dbContext;
+        private readonly INBAStatisticsContext DbContext;
+        private readonly IDbSet<TEntity> DbSet;
 
         public GenericRepository(INBAStatisticsContext dbContext)
         {
@@ -19,42 +21,64 @@
                 throw new ArgumentNullException(nameof(dbContext), "Database context cannot be null!");
             }
 
-            this.dbContext = dbContext;
+            this.DbContext = dbContext;
+            this.DbSet = this.DbContext.Set<TEntity>();
         }
 
-        public void Add(IEnumerable<TEntity> entries)
+        public void Add(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            foreach (var entity in entities)
+            {
+                this.Add(entity);
+            }
         }
 
-        public void Add(TEntity entry)
+        public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            this.ChangeState(entity, EntityState.Added);
         }
 
         public void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            this.ChangeState(entity, EntityState.Deleted);
         }
 
-        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var result = this.DbSet.Where(predicate);
+            return result;
         }
 
         public IQueryable<TEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return this.DbSet;
         }
 
         public TEntity GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = this.DbSet.Find(id);
+            return result;
+        }
+
+        public int SaveChanges()
+        {
+            return this.DbContext.SaveChanges();
         }
 
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            this.ChangeState(entity, EntityState.Modified);
+        }
+
+        private void ChangeState(TEntity entity, EntityState state)
+        {
+            var entry = this.DbContext.Entry<TEntity>(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                this.DbSet.Attach((TEntity)entry.Entity);
+            }
+
+            entry.State = state;
         }
     }
 }

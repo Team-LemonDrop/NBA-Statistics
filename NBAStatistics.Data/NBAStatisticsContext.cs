@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-
+using System.Data.Entity.Infrastructure;
 using NBAStatistics.Data.Migrations;
 using NBAStatistics.Models;
 
@@ -36,9 +36,16 @@ namespace NBAStatistics.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public new IDbSet<T> Set<T>() where T : class
+        public new IDbSet<T> Set<T>()
+            where T : class
         {
             return base.Set<T>();
+        }
+
+        public new DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
+            where TEntity : class
+        {
+            return base.Entry<TEntity>(entity);
         }
 
         public new int SaveChanges()
