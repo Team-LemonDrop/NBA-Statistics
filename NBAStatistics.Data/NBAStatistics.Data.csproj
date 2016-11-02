@@ -51,80 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Arena.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\City.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Conference.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Country.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HeadCoach.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NBAStatisticsModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NBAStatisticsModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NBAStatisticsModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NBAStatisticsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NBAStatisticsModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Player.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\School.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StandingsByDay.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Team.cs">
-      <DependentUpon>NBAStatisticsModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="NBAStatisticsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\NBAStatisticsModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NBAStatisticsModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
-    <None Include="Models\NBAStatisticsModel.edmx.diagram">
-      <DependentUpon>NBAStatisticsModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\NBAStatisticsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>NBAStatisticsModel.Context.cs</LastGenOutput>
-      <DependentUpon>NBAStatisticsModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\NBAStatisticsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NBAStatisticsModel.edmx</DependentUpon>
-      <LastGenOutput>NBAStatisticsModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\NBAStatistics.Models\NBAStatistics.Models.csproj">
+      <Project>{83ca476f-c0ea-4ce9-9878-b38f5ccaac28}</Project>
+      <Name>NBAStatistics.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
