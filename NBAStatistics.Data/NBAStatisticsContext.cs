@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+
 using NBAStatistics.Data.Migrations;
 using NBAStatistics.Models;
 
@@ -31,11 +32,6 @@ namespace NBAStatistics.Data
 
         public IDbSet<Team> Teams { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
-
         public new IDbSet<T> Set<T>()
             where T : class
         {
@@ -51,6 +47,11 @@ namespace NBAStatistics.Data
         public new int SaveChanges()
         {
             return base.SaveChanges();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
