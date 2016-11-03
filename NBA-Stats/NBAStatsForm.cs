@@ -24,6 +24,8 @@ using NBAStatistics.Data.FillMongoDB.Models;
 using MongoDB.Bson;
 using NBAStatistics.Data.FillMongoDB;
 using NBAStatistics.Data;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace NBA_Stats
 {
@@ -334,28 +336,44 @@ namespace NBA_Stats
 
             try
             {
-                uint team_Id = 1610612741;
-                var seasonStr = "2016-17";
+                var xmlDoc = XDocument.Load("../../teams-by-season.xml");
 
-                var options = new Dictionary<string, string>();
+                var teamsBySeasons = new Dictionary<string, List<string>>();
 
-                var tasks = new List<Task<TeamInfo>>();
+                var seasonIds = xmlDoc.XPathSelectElements("/seasons/season")
+                    .Select(el => el.Attribute("id").Value);
 
-                int numberOfTeams = 30;
-                for (int i = 0; i < numberOfTeams; i++)
+                foreach (var seasonId in seasonIds)
                 {
-                    string uriString = $"{TeamUri}TeamID={team_Id}&Season={seasonStr}";
+                    var teamIds = xmlDoc.XPathSelectElements($"/seasons/season[@id='{seasonId}']/teams/team")
+                        .Select(el => el.Attribute("id").Value)
+                        .ToList();
 
-                    // random delay to simulate human requests and prevent blocking of 
-                    // our IP address from server
-                    int secondsToDelay = RandomProvider.Instance.Next(0, numberOfTeams);
-
-                    tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, secondsToDelay / 3));
+                    teamsBySeasons[seasonId] = teamIds;
                 }
 
                 var players = new List<BsonDocument>();
 
-                await Task.Run(async () =>
+                foreach (var kvp in teamsBySeasons)
+                {
+                    var seasonId = kvp.Key;
+                    var teams = kvp.Value;
+                    var options = new Dictionary<string, string>();
+
+                    var tasks = new List<Task<TeamInfo>>();
+
+                    foreach (var team in teams)
+                    {
+                        string uriString = $"{TeamUri}TeamID={team}&Season={seasonId}";
+
+                        // random delay to simulate human requests and prevent blocking of 
+                        // our IP address from server
+                        int secondsToDelay = RandomProvider.Instance.Next(0, teams.Count);
+
+                        tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, secondsToDelay / 5));
+                    }
+
+                    await Task.Run(async () =>
                     {
                         foreach (var teamInfo in await Task.WhenAll(tasks))
                         {
@@ -405,6 +423,7 @@ namespace NBA_Stats
                             }
                         }
                     });
+                }
 
                 await FillMongoDB.FillPlayersCollection(players);
             }
