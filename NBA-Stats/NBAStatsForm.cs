@@ -23,6 +23,7 @@ using NBAStatistics.Models.Models.Json;
 using NBAStatistics.Data.FillMongoDB.Models;
 using MongoDB.Bson;
 using NBAStatistics.Data.FillMongoDB;
+using NBAStatistics.Data;
 
 namespace NBA_Stats
 {
@@ -418,6 +419,19 @@ namespace NBA_Stats
         private void btnImportZipDataToSqlServer_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dbContext = new NBAStatisticsContext();
+                MessageBox.Show(dbContext.Players.Count().ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ex " + ex.Message);
+            }
         }
     }
 }
