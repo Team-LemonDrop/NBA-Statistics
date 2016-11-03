@@ -60,11 +60,6 @@ namespace NBAStatistics.Data.Repositories
             return result;
         }
 
-        public int SaveChanges()
-        {
-            return this.DbContext.SaveChanges();
-        }
-
         public void Update(TEntity entity)
         {
             this.ChangeState(entity, EntityState.Modified);

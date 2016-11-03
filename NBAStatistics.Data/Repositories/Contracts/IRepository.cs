@@ -12,7 +12,7 @@ namespace NBAStatistics.Data.Repositories.Contracts
 
         IQueryable<TEntity> GetAll();
 
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression);
 
         void Add(TEntity entry);
 
@@ -21,7 +21,5 @@ namespace NBAStatistics.Data.Repositories.Contracts
         void Update(TEntity entity);
 
         void Delete(TEntity entity);
-
-        int SaveChanges();
     }
 }
