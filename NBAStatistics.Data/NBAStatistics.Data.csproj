@@ -51,12 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="INBAStatisticsContext.cs" />
+    <Compile Include="Contracts\INBAStatisticsContext.cs" />
+    <Compile Include="Contracts\INBAStatisticsData.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NBAStatisticsContext.cs" />
+    <Compile Include="NBAStatisticsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Contracts\IRepository.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\EfRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
