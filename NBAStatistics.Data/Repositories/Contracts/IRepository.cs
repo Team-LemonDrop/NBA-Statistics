@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace NBAStatistics.Data.Repositories.Contracts
@@ -10,7 +9,7 @@ namespace NBAStatistics.Data.Repositories.Contracts
     {
         TEntity GetById(int id);
 
-        IQueryable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll();
 
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression);
 
