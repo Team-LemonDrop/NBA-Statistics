@@ -14,16 +14,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
-using NBAStatistics.Models;
 using System.Collections;
 using System.Data.OleDb;
 using NBA_Stats.ConnectionProviders;
 using System.Globalization;
 using System.IO.Compression;
 using NBAStatistics.Models.Models.Json;
+using NBAStatistics.Data.FillMongoDB.Models;
+using MongoDB.Bson;
+using NBAStatistics.Data.FillMongoDB;
 using NBAStatistics.Data;
-using System.Data.Entity;
-using NBAStatistics.Data.Migrations;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace NBA_Stats
 {
@@ -334,61 +336,96 @@ namespace NBA_Stats
 
             try
             {
-                uint team_Id = 1610612741;
-                var seasonStr = "2016-17";
+                var xmlDoc = XDocument.Load("../../teams-by-season.xml");
 
-                var options = new Dictionary<string, string>();
+                var teamsBySeasons = new Dictionary<string, List<string>>();
 
-                var tasks = new List<Task<TeamInfo>>();
+                var seasonIds = xmlDoc.XPathSelectElements("/seasons/season")
+                    .Select(el => el.Attribute("id").Value);
 
-                int numberOfTeams = 30;
-                for (int i = 0; i < numberOfTeams; i++)
+                foreach (var seasonId in seasonIds)
                 {
-                    string uriString = $"{TeamUri}TeamID={team_Id}&Season={seasonStr}";
+                    var teamIds = xmlDoc.XPathSelectElements($"/seasons/season[@id='{seasonId}']/teams/team")
+                        .Select(el => el.Attribute("id").Value)
+                        .ToList();
 
-                    // random delay to simulate human requests and prevent blocking of 
-                    // our IP address from server
-                    int secondsToDelay = RandomProvider.Instance.Next(0, numberOfTeams);
-
-                    tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, secondsToDelay / 3));
+                    teamsBySeasons[seasonId] = teamIds;
                 }
 
-                await Task.Run(async () =>
+                var players = new List<BsonDocument>();
+
+                foreach (var kvp in teamsBySeasons)
                 {
-                    foreach (var teamInfo in await Task.WhenAll(tasks))
+                    var seasonId = kvp.Key;
+                    var teams = kvp.Value;
+                    var options = new Dictionary<string, string>();
+
+                    var tasks = new List<Task<TeamInfo>>();
+
+                    foreach (var team in teams)
                     {
-                        if (teamInfo == null)
-                        {
-                            MessageBox.Show("TeamInfo url does not response with JSON file.");
-                            return;
-                        }
+                        string uriString = $"{TeamUri}TeamID={team}&Season={seasonId}";
 
-                        foreach (var resultSet in teamInfo.ResultSets)
+                        // random delay to simulate human requests and prevent blocking of 
+                        // our IP address from server
+                        int secondsToDelay = RandomProvider.Instance.Next(0, teams.Count);
+
+                        tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, secondsToDelay / 5));
+                    }
+
+                    await Task.Run(async () =>
+                    {
+                        foreach (var teamInfo in await Task.WhenAll(tasks))
                         {
-                            if (resultSet.Name == "CommonTeamRoster")
+                            if (teamInfo == null)
                             {
-                                foreach (var row in resultSet.RowSet)
-                                {
-                                    var teamId = (int)(long)row[0];
-                                    var season = (string)row[1];
-                                    var leagueId = (string)row[2];
-                                    var player = (string)row[3];
-                                    var num = (string)row[4];
-                                    var position = (string)row[5];
-                                    var height = (string)row[6];
-                                    var weight = (string)row[7];
-                                    var birthDate = (string)row[8];
-                                    var age = (double)row[9];
-                                    var exp = (string)row[10];
-                                    var school = (string)row[11];
-                                    var playerId = (int)(long)row[12];
+                                MessageBox.Show("TeamInfo url does not response with JSON file.");
+                                return;
+                            }
 
-                                    // TODO: fill MongoDB
+                            foreach (var resultSet in teamInfo.ResultSets)
+                            {
+                                if (resultSet.Name == "CommonTeamRoster")
+                                {
+                                    foreach (var row in resultSet.RowSet)
+                                    {
+                                        var teamId = (int)(long)row[0];
+                                        var season = (string)row[1];
+                                        var leagueId = (string)row[2];
+                                        var playerName = (string)row[3];
+                                        var num = (string)row[4];
+                                        var position = (string)row[5];
+                                        var height = (string)row[6];
+                                        var weight = (string)row[7];
+                                        var birthDate = (string)row[8];
+                                        var age = (double)row[9];
+                                        var exp = (string)row[10];
+                                        var school = (string)row[11];
+                                        var playerId = (int)(long)row[12];
+
+                                        players.Add(new NBAStatistics.Data.FillMongoDB.Models.Player(
+                                            teamId,
+                                            season,
+                                            leagueId,
+                                            playerName,
+                                            num,
+                                            position,
+                                            height,
+                                            weight,
+                                            birthDate,
+                                            age,
+                                            exp,
+                                            school,
+                                            playerId
+                                        ).ToBsonDocument());
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
+
+                await FillMongoDB.FillPlayersCollection(players);
             }
             catch (Exception ex)
             {
