@@ -10,5 +10,7 @@ namespace NBAStatistics.Data.FillSQLiteDB
 {
     public class FillSQLiteDB
     {
+        private static SQLiteConnection connection = new SQLiteConnection();
+        private readonly string connectionString = "../../SqlliteDb.sqlite";
     }
 }
