@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace NBA_Stats
 {
-    static class Program
+    static class EntryPoint
     {
         /// <summary>
         /// The main entry point for the application.
