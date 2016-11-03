@@ -56,7 +56,7 @@
     <Compile Include="NBAStatisticsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Contracts\IRepository.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\EfRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

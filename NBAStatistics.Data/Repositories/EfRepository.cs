@@ -8,13 +8,13 @@ using NBAStatistics.Data.Repositories.Contracts;
 
 namespace NBAStatistics.Data.Repositories
 {
-    public class GenericRepository<TEntity> : IRepository<TEntity>
+    public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
         private readonly INBAStatisticsContext DbContext;
         private readonly IDbSet<TEntity> DbSet;
 
-        public GenericRepository(INBAStatisticsContext dbContext)
+        public EfRepository(INBAStatisticsContext dbContext)
         {
             if (dbContext == null)
             {
@@ -43,9 +43,9 @@ namespace NBAStatistics.Data.Repositories
             this.ChangeState(entity, EntityState.Deleted);
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression)
         {
-            var result = this.DbSet.Where(predicate);
+            var result = this.DbSet.Where(filterExpression);
             return result;
         }
 
