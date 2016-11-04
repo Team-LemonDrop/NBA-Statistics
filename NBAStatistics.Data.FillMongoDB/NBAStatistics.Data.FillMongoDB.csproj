@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FillMongoDB.cs" />
+    <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

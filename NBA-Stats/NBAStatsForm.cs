@@ -353,6 +353,7 @@ namespace NBA_Stats
                 }
 
                 var players = new List<BsonDocument>();
+                var coaches = new List<BsonDocument>();
 
                 foreach (var kvp in teamsBySeasons)
                 {
@@ -398,7 +399,7 @@ namespace NBA_Stats
                                         var height = (string)row[6];
                                         var weight = (string)row[7];
                                         var birthDate = (string)row[8];
-                                        var age = (double)row[9];
+                                        var age = (int)(double)row[9];
                                         var exp = (string)row[10];
                                         var school = (string)row[11];
                                         var playerId = (int)(long)row[12];
@@ -420,12 +421,43 @@ namespace NBA_Stats
                                         ).ToBsonDocument());
                                     }
                                 }
+                                else if (resultSet.Name == "Coaches")
+                                {
+                                    foreach (var row in resultSet.RowSet)
+                                    {
+                                        var teamId = (int)(long)row[0];
+                                        var season = (string)row[1];
+                                        var coachId = (string)row[2];
+                                        var firstName = (string)row[3];
+                                        var lastName = (string)row[4];
+                                        var coachName = (string)row[5];
+                                        var coachCode = (string)row[6];
+                                        var isAssistant = (int)(double)row[7];
+                                        var coachType = (string)row[8];
+                                        var school = (string)row[9];
+                                        var sortSequence = (int)(double)row[10];
+
+                                        coaches.Add(new NBAStatistics.Data.FillMongoDB.Models.Coach(
+                                            teamId,
+                                            season,
+                                            coachId,
+                                            firstName,
+                                            lastName,
+                                            coachName,
+                                            coachCode,
+                                            isAssistant,
+                                            coachType,
+                                            school,
+                                            sortSequence
+                                        ).ToBsonDocument());
+                                    }
+                                }
                             }
                         }
                     });
                 }
 
-                await FillMongoDB.FillPlayersCollection(players);
+                await FillMongoDB.FillDatabase(players, coaches);
             }
             catch (Exception ex)
             {

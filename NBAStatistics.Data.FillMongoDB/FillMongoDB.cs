@@ -18,7 +18,7 @@ namespace NBAStatistics.Data.FillMongoDB
         private const int DbPort = 29565;
         private const string DbName = "appharbor_5cwg75nh";
 
-        public async static Task FillPlayersCollection(IEnumerable<BsonDocument> players)
+        public async static Task FillDatabase(IEnumerable<BsonDocument> players, IEnumerable<BsonDocument> coaches)
         {
             await Task.Run(() =>
             {
@@ -30,11 +30,13 @@ namespace NBAStatistics.Data.FillMongoDB
                 };
 
                 var client = new MongoClient(settings);
-
                 var db = client.GetDatabase(DbName);
-                var playersCollection = db.GetCollection<BsonDocument>("Players");
 
+                var playersCollection = db.GetCollection<BsonDocument>("Players");
                 playersCollection.InsertMany(players);
+
+                var coachesCollection = db.GetCollection<BsonDocument>("Coaches");
+                coachesCollection.InsertMany(coaches);
             });
         }
     }
