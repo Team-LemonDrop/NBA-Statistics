@@ -46,11 +46,5 @@ namespace NBAStatistics.Models
         public int? TeamId { get; set; }
 
         public virtual Team Team { get; set; }
-
-        //public virtual ICollection<Team> Teams
-        //{
-        //    get { return this.teams; }
-        //    set { this.teams = value; }
-        //}
     }
 }

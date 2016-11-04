@@ -8,13 +8,11 @@ namespace NBAStatistics.Models
     {
         private ICollection<StandingsByDay> standingsByDays;
         private ICollection<Player> players;
-        //private ICollection<Player> oldPlayers;
 
         public Team()
         {
             this.players = new HashSet<Player>();
             this.standingsByDays = new HashSet<StandingsByDay>();
-            //this.oldPlayers = new HashSet<Player>();
         }
 
         public int Id { get; set; }
@@ -49,11 +47,5 @@ namespace NBAStatistics.Models
             get { return this.standingsByDays; }
             set { this.standingsByDays = value; }
         }
-
-        //public virtual ICollection<Player> OldPlayers
-        //{
-        //    get { return this.oldPlayers; }
-        //    set { this.oldPlayers = value; }
-        //}
     }
 }

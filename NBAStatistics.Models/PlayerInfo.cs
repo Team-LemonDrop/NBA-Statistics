@@ -16,7 +16,5 @@ namespace NBAStatistics.Models
 
         [Column("Weight")]
         public double Weight { get; set; }
-
-        
     }
 }
