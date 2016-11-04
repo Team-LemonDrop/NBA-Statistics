@@ -16,7 +16,7 @@ namespace NBAStatistics.Data.FillMongoDB.Models
             int isAssistant,
             string coachType,
             string school,
-            int sortSequence
+            int? sortSequence
             )
         {
             this.TeamId = teamId;
@@ -55,11 +55,10 @@ namespace NBAStatistics.Data.FillMongoDB.Models
         [BsonRepresentation(BsonType.Int32)]
         public int IsAssistant { get; private set; }
 
-        public string CoachType { get; private set; }              
-        
+        public string CoachType { get; private set; }
+
         public string School { get; private set; }
 
-        [BsonRepresentation(BsonType.Int32)]
-        public int SortSequence { get; private set; }        
+        public int? SortSequence { get; private set; }
     }
 }
