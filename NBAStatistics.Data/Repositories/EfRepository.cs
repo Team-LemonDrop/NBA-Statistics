@@ -49,7 +49,7 @@ namespace NBAStatistics.Data.Repositories
             return result;
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             return this.DbSet;
         }
