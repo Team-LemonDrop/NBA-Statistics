@@ -6,7 +6,7 @@ namespace NBAStatistics.Data
 {
     public class NBAStatisticsData : INBAStatisticsData
     {
-        private readonly INBAStatisticsContext DbContext;
+        private readonly INBAStatisticsContext dbContext;
 
         public NBAStatisticsData(INBAStatisticsContext dbContext)
         {
@@ -15,12 +15,12 @@ namespace NBAStatistics.Data
                 throw new ArgumentNullException(nameof(dbContext), "Database context cannot be null!");
             }
 
-            this.DbContext = dbContext;
+            this.dbContext = dbContext;
         }
 
         public void Commit()
         {
-            this.DbContext.SaveChanges();
+            this.dbContext.SaveChanges();
         }
     }
 }

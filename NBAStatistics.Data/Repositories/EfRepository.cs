@@ -11,8 +11,8 @@ namespace NBAStatistics.Data.Repositories
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        private readonly INBAStatisticsContext DbContext;
-        private readonly IDbSet<TEntity> DbSet;
+        private readonly INBAStatisticsContext dbContext;
+        private readonly IDbSet<TEntity> dbSet;
 
         public EfRepository(INBAStatisticsContext dbContext)
         {
@@ -21,8 +21,8 @@ namespace NBAStatistics.Data.Repositories
                 throw new ArgumentNullException(nameof(dbContext), "Database context cannot be null!");
             }
 
-            this.DbContext = dbContext;
-            this.DbSet = this.DbContext.Set<TEntity>();
+            this.dbContext = dbContext;
+            this.dbSet = this.dbContext.Set<TEntity>();
         }
 
         public void Add(IEnumerable<TEntity> entities)
@@ -45,18 +45,18 @@ namespace NBAStatistics.Data.Repositories
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression)
         {
-            var result = this.DbSet.Where(filterExpression);
+            var result = this.dbSet.Where(filterExpression);
             return result;
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return this.DbSet;
+            return this.dbSet;
         }
 
         public TEntity GetById(int id)
         {
-            var result = this.DbSet.Find(id);
+            var result = this.dbSet.Find(id);
             return result;
         }
 
@@ -67,10 +67,10 @@ namespace NBAStatistics.Data.Repositories
 
         private void ChangeState(TEntity entity, EntityState state)
         {
-            var entry = this.DbContext.Entry<TEntity>(entity);
+            var entry = this.dbContext.Entry<TEntity>(entity);
             if (entry.State == EntityState.Detached)
             {
-                this.DbSet.Attach((TEntity)entry.Entity);
+                this.dbSet.Attach((TEntity)entry.Entity);
             }
 
             entry.State = state;
