@@ -7,15 +7,15 @@ namespace NBAStatistics.Data.FillMongoDB.Models
     {
         public Player(
             int teamId,
-            string season, 
-            string leagueId, 
+            string season,
+            string leagueId,
             string playerName,
             string num,
             string position,
             string height,
             string weight,
             string birthDate,
-            double age,
+            int age,
             string exp,
             string school,
             int playerId)
@@ -59,7 +59,8 @@ namespace NBAStatistics.Data.FillMongoDB.Models
 
         public string BirthDate { get; private set; }
 
-        public double Age { get; private set; }
+        [BsonRepresentation(BsonType.Int32)]
+        public int Age { get; private set; }
 
         public string Exp { get; private set; }
 
