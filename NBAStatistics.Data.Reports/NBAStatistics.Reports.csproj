@@ -7,8 +7,8 @@
     <ProjectGuid>{D84A5EB5-5D73-4949-880A-191C84715BA2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NBAStatistics.Data.Reports</RootNamespace>
-    <AssemblyName>NBAStatistics.Data.Reports</AssemblyName>
+    <RootNamespace>NBAStatistics.Reports</RootNamespace>
+    <AssemblyName>NBAStatistics.Reports</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

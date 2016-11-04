@@ -5,7 +5,7 @@ using System.Xml;
 using NBAStatistics.Data.Repositories.Contracts;
 using NBAStatistics.Models;
 
-namespace NBAStatistics.Data.Reports
+namespace NBAStatistics.Reports
 {
     public class PlayedGamesXMLReport : Report<StandingsByDay>
     {

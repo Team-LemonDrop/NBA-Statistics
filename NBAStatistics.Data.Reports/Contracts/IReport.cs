@@ -1,4 +1,4 @@
-﻿namespace NBAStatistics.Data.Reports.Contracts
+﻿namespace NBAStatistics.Reports.Contracts
 {
     public interface IReport<T> where T : class
     {

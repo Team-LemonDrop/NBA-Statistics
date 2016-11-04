@@ -1,7 +1,7 @@
-﻿using NBAStatistics.Data.Reports.Contracts;
+﻿using NBAStatistics.Reports.Contracts;
 using NBAStatistics.Data.Repositories.Contracts;
 
-namespace NBAStatistics.Data.Reports
+namespace NBAStatistics.Reports
 {
     public abstract class Report<T> : IReport<T> where T : class
     {
