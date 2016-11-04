@@ -338,38 +338,38 @@ namespace NBA_Stats
             {
                 var xmlDoc = XDocument.Load("../../teams-by-season.xml");
 
-                var teamsBySeasons = new Dictionary<string, List<string>>();
-
                 var seasonIds = xmlDoc.XPathSelectElements("/seasons/season")
                     .Select(el => el.Attribute("id").Value);
 
+                var seasons = new HashSet<Season>();
+                var players = new HashSet<Player>();
+                var coaches = new HashSet<Coach>();
+
                 foreach (var seasonId in seasonIds)
                 {
-                    var teamIds = xmlDoc.XPathSelectElements($"/seasons/season[@id='{seasonId}']/teams/team")
-                        .Select(el => el.Attribute("id").Value)
+                    var teams = xmlDoc.XPathSelectElements($"/seasons/season[@id='{seasonId}']/teams/team")
+                        .Select(el => new Team(
+                            int.Parse(el.Attribute("id").Value),
+                            el.Attribute("name").Value))
                         .ToList();
 
-                    teamsBySeasons[seasonId] = teamIds;
+                    seasons.Add(new Season(seasonId, teams));
                 }
 
-                var players = new List<BsonDocument>();
-                var coaches = new List<BsonDocument>();
-
-                foreach (var kvp in teamsBySeasons)
+                foreach (var seasonId in seasonIds)
                 {
-                    var seasonId = kvp.Key;
-                    var teams = kvp.Value;
+                    var teams = seasons.First(x => x.SeasonId == seasonId).Teams;
                     var options = new Dictionary<string, string>();
 
-                    var tasks = new List<Task<TeamInfo>>();
+                    var tasks = new HashSet<Task<TeamInfo>>();
 
                     foreach (var team in teams)
                     {
-                        string uriString = $"{TeamUri}TeamID={team}&Season={seasonId}";
+                        string uriString = $"{TeamUri}TeamID={team.TeamId}&Season={seasonId}";
 
                         // random delay to simulate human requests and prevent blocking of 
                         // our IP address from server
-                        int secondsToDelay = RandomProvider.Instance.Next(0, teams.Count);
+                        int secondsToDelay = RandomProvider.Instance.Next(0, teams.Count());
 
                         tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, secondsToDelay / 5));
                     }
@@ -404,7 +404,7 @@ namespace NBA_Stats
                                         var school = (string)row[11];
                                         var playerId = (int)(long)row[12];
 
-                                        players.Add(new NBAStatistics.Data.FillMongoDB.Models.Player(
+                                        players.Add(new Player(
                                             teamId,
                                             season,
                                             leagueId,
@@ -418,7 +418,7 @@ namespace NBA_Stats
                                             exp,
                                             school,
                                             playerId
-                                        ).ToBsonDocument());
+                                        ));
                                     }
                                 }
                                 else if (resultSet.Name == "Coaches")
@@ -435,9 +435,9 @@ namespace NBA_Stats
                                         var isAssistant = (int)(double)row[7];
                                         var coachType = (string)row[8];
                                         var school = (string)row[9];
-                                        var sortSequence = (int)(double)row[10];
+                                        var sortSequence = (int?)(double?)row[10];
 
-                                        coaches.Add(new NBAStatistics.Data.FillMongoDB.Models.Coach(
+                                        coaches.Add(new Coach(
                                             teamId,
                                             season,
                                             coachId,
@@ -449,7 +449,7 @@ namespace NBA_Stats
                                             coachType,
                                             school,
                                             sortSequence
-                                        ).ToBsonDocument());
+                                        ));
                                     }
                                 }
                             }
@@ -457,7 +457,10 @@ namespace NBA_Stats
                     });
                 }
 
-                await FillMongoDB.FillDatabase(players, coaches);
+                await FillMongoDB.FillDatabase(
+                    seasons.Select(x => x.ToBsonDocument<Season>()),
+                    players.Select(x => x.ToBsonDocument()),
+                    coaches.Select(x => x.ToBsonDocument()));
             }
             catch (Exception ex)
             {
