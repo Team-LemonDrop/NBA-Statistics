@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data.FillMong
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data.FillSQLiteDB", "NBAStatistics.Data.FillSQLiteDB\NBAStatistics.Data.FillSQLiteDB.csproj", "{CD81E9A4-2E77-41AA-B9CB-A2FEA9C3583C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data.Reports", "NBAStatistics.Data.Reports\NBAStatistics.Data.Reports.csproj", "{D84A5EB5-5D73-4949-880A-191C84715BA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Reports", "NBAStatistics.Reports\NBAStatistics.Reports.csproj", "{D84A5EB5-5D73-4949-880A-191C84715BA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

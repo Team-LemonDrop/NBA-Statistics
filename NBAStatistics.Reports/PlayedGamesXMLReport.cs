@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Xml;
+
 using NBAStatistics.Data.Repositories.Contracts;
 using NBAStatistics.Models;
 
@@ -13,10 +14,10 @@ namespace NBAStatistics.Reports
         {
         }
 
-        public override void Generate(string fileName, string savePath)
+        public override void Generate(string savePath)
         {
             var fileEncoding = Encoding.GetEncoding("windows-1251");
-            using (var xmlWriter = new XmlTextWriter(fileName, fileEncoding))
+            using (var xmlWriter = new XmlTextWriter(savePath, fileEncoding))
             {
                 xmlWriter.Formatting = Formatting.Indented;
                 xmlWriter.IndentChar = '\t';

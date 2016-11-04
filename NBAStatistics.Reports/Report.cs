@@ -12,6 +12,6 @@ namespace NBAStatistics.Reports
 
         protected IRepository<T> DataSource { get; }
 
-        public abstract void Generate(string fileName, string savePath);
+        public abstract void Generate(string savePath);
     }
 }
