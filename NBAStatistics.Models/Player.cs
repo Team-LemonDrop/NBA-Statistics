@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBAStatistics.Models
 {
-    public partial class Player
+    public class Player
     {
-        private ICollection<Team> teams;
+        private ICollection<PlayersSeasons> playedSeasons;
 
         public Player()
         {
-            this.teams = new HashSet<Team>();
+            this.playedSeasons = new HashSet<PlayersSeasons>();
         }
 
         public int Id { get; set; }
@@ -47,10 +47,10 @@ namespace NBAStatistics.Models
 
         public virtual Team Team { get; set; }
 
-        //public virtual ICollection<Team> Teams
-        //{
-        //    get { return this.teams; }
-        //    set { this.teams = value; }
-        //}
+        public virtual ICollection<PlayersSeasons> PlayedSeasons
+        {
+            get { return this.playedSeasons; }
+            set { this.playedSeasons = value; }
+        }
     }
 }
