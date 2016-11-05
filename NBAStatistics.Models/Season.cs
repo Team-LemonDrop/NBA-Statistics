@@ -14,9 +14,9 @@ namespace NBAStatistics.Models
 
         public int Id { get; set; }
 
-        public DateTime Start { get; set; }
+        public ushort StartYear { get; set; }
 
-        public DateTime End { get; set; }
+        public ushort EndYear { get; set; }
 
         public virtual ICollection<PlayersSeasons> Players
         {
