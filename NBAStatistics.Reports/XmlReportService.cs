@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using NBAStatistics.Data.Repositories.Contracts;
+using NBAStatistics.Data.Contracts.Base;
 using NBAStatistics.Models;
 using NBAStatistics.Reports.Contracts;
 using NBAStatistics.Reports.Pocos;

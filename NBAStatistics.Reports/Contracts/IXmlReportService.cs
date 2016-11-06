@@ -1,4 +1,4 @@
-﻿using NBAStatistics.Data.Repositories.Contracts;
+﻿using NBAStatistics.Data.Contracts.Base;
 using NBAStatistics.Models;
 
 namespace NBAStatistics.Reports.Contracts
