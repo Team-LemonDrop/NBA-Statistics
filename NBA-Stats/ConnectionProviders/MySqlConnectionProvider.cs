@@ -1,26 +1,13 @@
-﻿using MySql.Data.MySqlClient;
-using NBA_Stats.ConnectionProviders.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace NBA_Stats.ConnectionProviders
 {
-    public class MySqlConnectionProvider : IConnectionProvider
+    public class MySqlConnectionProvider : ConnectionProvider
     {
-        public IDbConnection CreateConnection(string connectionString)
+        protected override IDbConnection GetConnection(string connectionString)
         {
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new ArgumentNullException(nameof(connectionString));
-            }
-
-            var connection = new MySqlConnection(connectionString);
-
-            return connection;
+            return new MySqlConnection(connectionString);
         }
     }
 }
