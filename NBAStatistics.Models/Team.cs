@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBAStatistics.Models
 {
@@ -8,7 +9,6 @@ namespace NBAStatistics.Models
     {
         private ICollection<StandingsByDay> standingsByDays;
         private ICollection<Player> players;
-        //private ICollection<Player> oldPlayers;
 
         public Team()
         {
@@ -19,6 +19,8 @@ namespace NBAStatistics.Models
 
         public int Id { get; set; }
 
+        public int TeamId { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
@@ -26,9 +28,9 @@ namespace NBAStatistics.Models
         [MaxLength(20)]
         public string Abbreviation { get; set; }
 
-        public DateTime Founded { get; set; }
+        public DateTime? Founded { get; set; }
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
         public virtual City City { get; set; }
 
@@ -49,11 +51,5 @@ namespace NBAStatistics.Models
             get { return this.standingsByDays; }
             set { this.standingsByDays = value; }
         }
-
-        //public virtual ICollection<Player> OldPlayers
-        //{
-        //    get { return this.oldPlayers; }
-        //    set { this.oldPlayers = value; }
-        //}
     }
 }
