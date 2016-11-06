@@ -92,10 +92,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionProviders\ConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\Contracts\IConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\OleDbConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\SqliteDbConnectionProvider.cs" />
+    <Compile Include="ConnectionProviders\SqlServerConectionProvider.cs" />
     <Compile Include="RandomProvider.cs" />
     <Compile Include="StandingsByDay.cs" />
     <Compile Include="JsonHelpers.cs" />
