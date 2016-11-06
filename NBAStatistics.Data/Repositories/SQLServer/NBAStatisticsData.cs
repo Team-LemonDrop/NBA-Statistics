@@ -1,26 +1,26 @@
 ﻿using System;
 
-using NBAStatistics.Data.Contracts;
+using NBAStatistics.Data.Contracts.SQLServer;
 
-namespace NBAStatistics.Data
+namespace NBAStatistics.Data.Repositories.SQLServer
 {
     public class NBAStatisticsData : INBAStatisticsData
     {
-        private readonly INBAStatisticsContext dbContext;
+        private readonly INBAStatisticsDbContext DbContext;
 
-        public NBAStatisticsData(INBAStatisticsContext dbContext)
+        public NBAStatisticsData(INBAStatisticsDbContext dbContext)
         {
             if (dbContext == null)
             {
                 throw new ArgumentNullException(nameof(dbContext), "Database context cannot be null!");
             }
 
-            this.dbContext = dbContext;
+            this.DbContext = dbContext;
         }
 
         public void Commit()
         {
-            this.dbContext.SaveChanges();
+            this.DbContext.SaveChanges();
         }
     }
 }

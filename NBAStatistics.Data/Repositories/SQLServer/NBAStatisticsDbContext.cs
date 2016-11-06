@@ -1,17 +1,18 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
+using NBAStatistics.Data.Contracts.SQLServer;
 using NBAStatistics.Data.Migrations;
 using NBAStatistics.Models;
 
-namespace NBAStatistics.Data
+namespace NBAStatistics.Data.Repositories.SQLServer
 {
-    public class NBAStatisticsContext : DbContext, INBAStatisticsContext
+    public class NBAStatisticsDbContext : DbContext, INBAStatisticsDbContext
     {
-        public NBAStatisticsContext()
+        public NBAStatisticsDbContext()
             : base("name=NBAStatisticsConnection")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<NBAStatisticsContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<NBAStatisticsDbContext, Configuration>());
         }
 
         public IDbSet<Arena> Arenas { get; set; }

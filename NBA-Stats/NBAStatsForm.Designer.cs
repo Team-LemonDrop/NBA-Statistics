@@ -30,7 +30,7 @@
         {
             this.btnGenerateZipFile = new System.Windows.Forms.Button();
             this.btnFillMongoDb = new System.Windows.Forms.Button();
-            this.btnImportZipDataToSqlServer = new System.Windows.Forms.Button();
+            this.btnImportDataIntoSqlServer = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -55,16 +55,15 @@
             this.btnFillMongoDb.UseVisualStyleBackColor = true;
             this.btnFillMongoDb.Click += new System.EventHandler(this.btnFillMongoDb_Click);
             // 
-            // btnImportZipDataToSqlServer
+            // btnImportDataIntoSqlServer
             // 
-            this.btnImportZipDataToSqlServer.Enabled = false;
-            this.btnImportZipDataToSqlServer.Location = new System.Drawing.Point(64, 155);
-            this.btnImportZipDataToSqlServer.Name = "btnImportZipDataToSqlServer";
-            this.btnImportZipDataToSqlServer.Size = new System.Drawing.Size(195, 23);
-            this.btnImportZipDataToSqlServer.TabIndex = 2;
-            this.btnImportZipDataToSqlServer.Text = "Import ZIP data to SQL Server";
-            this.btnImportZipDataToSqlServer.UseVisualStyleBackColor = true;
-            this.btnImportZipDataToSqlServer.Click += new System.EventHandler(this.btnImportZipDataToSqlServer_Click);
+            this.btnImportDataIntoSqlServer.Location = new System.Drawing.Point(64, 155);
+            this.btnImportDataIntoSqlServer.Name = "btnImportDataIntoSqlServer";
+            this.btnImportDataIntoSqlServer.Size = new System.Drawing.Size(170, 23);
+            this.btnImportDataIntoSqlServer.TabIndex = 2;
+            this.btnImportDataIntoSqlServer.Text = "Import data into SQL Server";
+            this.btnImportDataIntoSqlServer.UseVisualStyleBackColor = true;
+            this.btnImportDataIntoSqlServer.Click += new System.EventHandler(this.btnImportDataIntoSqlServer_Click);
             // 
             // button1
             // 
@@ -92,7 +91,7 @@
             this.ClientSize = new System.Drawing.Size(663, 402);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnImportZipDataToSqlServer);
+            this.Controls.Add(this.btnImportDataIntoSqlServer);
             this.Controls.Add(this.btnFillMongoDb);
             this.Controls.Add(this.btnGenerateZipFile);
             this.Name = "NBAStatsForm";
@@ -105,7 +104,7 @@
 
         private System.Windows.Forms.Button btnGenerateZipFile;
         private System.Windows.Forms.Button btnFillMongoDb;
-        private System.Windows.Forms.Button btnImportZipDataToSqlServer;
+        private System.Windows.Forms.Button btnImportDataIntoSqlServer;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
     }
