@@ -18,6 +18,7 @@ namespace NBAStatistics.Models
 
         public int Id { get; set; }
 
+        [Column("TeamId-NBA")]
         public int TeamId { get; set; }
 
         [Required]
