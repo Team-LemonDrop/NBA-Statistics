@@ -76,6 +76,12 @@ namespace NBAStatistics.Data.Repositories.SQLServer
             }
         }
 
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression)
+        {
+            var result = this.DbSet.Where(filterExpression);
+            return result;
+        }
+
         //public IStudentSystemDbContext Context { get; set; }
 
         // might be useful in unit testing but I'm not sure now

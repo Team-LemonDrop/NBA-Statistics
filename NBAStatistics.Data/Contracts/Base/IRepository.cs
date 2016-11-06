@@ -19,6 +19,8 @@ namespace NBAStatistics.Data.Contracts.Base
 
         IEnumerable<T2> GetAll<T1, T2>(Expression<Func<TEntity, bool>> filterExpression, Expression<Func<TEntity, T1>> sortExpression, Expression<Func<TEntity, T2>> selectExpression);
 
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filterExpression);
+
         void Add(TEntity entity);
 
         void Update(TEntity entity);
