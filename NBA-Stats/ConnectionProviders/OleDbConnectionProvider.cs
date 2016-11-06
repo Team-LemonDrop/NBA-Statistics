@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NBA_Stats.ConnectionProviders
 {
-    public class OleDbConnectionProvider : IConnectionProvider
+    public class OleDbConnectionProvider : Contracts.ConnectionProvider
     {
         public static string GetConnectionString(string filePath, bool xlsx)
         {
