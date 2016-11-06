@@ -2,9 +2,9 @@
 using System.Data.Entity.Infrastructure;
 using NBAStatistics.Models;
 
-namespace NBAStatistics.Data
+namespace NBAStatistics.Data.Contracts.SQLServer
 {
-    public interface INBAStatisticsContext
+    public interface INBAStatisticsDbContext
     {
         IDbSet<Arena> Arenas { get; set; }
 
@@ -31,3 +31,4 @@ namespace NBAStatistics.Data
         int SaveChanges();
     }
 }
+
