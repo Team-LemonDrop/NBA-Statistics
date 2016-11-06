@@ -148,6 +148,10 @@
       <Project>{6C2F92A4-FBFF-4E78-B5AC-FDEAF45D5219}</Project>
       <Name>NBAStatistics.Data.FillMongoDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NBAStatistics.Data.ImportIntoSqlServer\NBAStatistics.Data.ImportIntoSqlServer.csproj">
+      <Project>{B53178B9-E13E-47CD-9146-17994F9EC679}</Project>
+      <Name>NBAStatistics.Data.ImportIntoSqlServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NBAStatistics.Data\NBAStatistics.Data.csproj">
       <Project>{ff3fc613-ee7c-4c63-88b3-e68579183526}</Project>
       <Name>NBAStatistics.Data</Name>

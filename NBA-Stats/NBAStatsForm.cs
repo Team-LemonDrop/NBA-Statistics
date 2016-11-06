@@ -26,6 +26,7 @@ using NBAStatistics.Data.FillMongoDB;
 using NBAStatistics.Data;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using NBAStatistics.Data.ImportIntoSqlServer;
 
 namespace NBA_Stats
 {
@@ -470,16 +471,27 @@ namespace NBA_Stats
             this.btnFillMongoDb.Enabled = true;
         }
 
-        private void btnImportZipDataToSqlServer_Click(object sender, EventArgs e)
+        private async void btnImportDataIntoSqlServer_Click(object sender, EventArgs e)
         {
+            this.btnImportDataIntoSqlServer.Enabled = false;
 
+            try
+            {
+                await ImportIntoSqlServer.Import();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            this.btnImportDataIntoSqlServer.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                var dbContext = new NBAStatisticsContext();
+                var dbContext = new NBAStatistics.Data.Repositories.SQLServer.NBAStatisticsDbContext();
                 MessageBox.Show(dbContext.Players.Count().ToString());
             }
             catch (Exception ex)

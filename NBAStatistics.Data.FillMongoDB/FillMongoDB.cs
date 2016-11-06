@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using NBAStatistics.Data.FillMongoDB.Models;
+using NBAStatistics.Models;
 using NBAStatistics.Data.FillMongoDB.Repositories;
 using System;
 using System.Collections.Generic;
