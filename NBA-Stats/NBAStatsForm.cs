@@ -351,7 +351,14 @@ namespace NBA_Stats
                     var teams = xmlDoc.XPathSelectElements($"/seasons/season[@id='{seasonId}']/teams/team")
                         .Select(el => new Team(
                             int.Parse(el.Attribute("id").Value),
-                            el.Attribute("name").Value))
+                            el.Element("name").Value,
+                            el.Attribute("abbreviation").Value,
+                            el.Element("logo-src").Value,
+                            el.Element("headcoach").Value,
+                            int.Parse(el.Attribute("founded").Value),
+                            el.Element("arena").Value,
+                            el.Attribute("city").Value,
+                            el.Attribute("country").Value))
                         .ToList();
 
                     seasons.Add(new Season(seasonId, teams));

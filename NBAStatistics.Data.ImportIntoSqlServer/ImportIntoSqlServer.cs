@@ -41,7 +41,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
             {
                 var mongoSeasons = mongoDb.GetCollection<NBAStatistics.Data.FillMongoDB.Models.Season>("Seasons").AsQueryable().ToList();
 
-                // Load all teams from the database into the context 
+                // Load all teams from the database into the dbContext 
                 dbContext.Teams.Load();
 
                 foreach (var season in mongoSeasons)
@@ -69,7 +69,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
 
                 var mongoPlayers = mongoDb.GetCollection<NBAStatistics.Data.FillMongoDB.Models.Player>("Players").AsQueryable().ToList();
 
-                // Load all players from the database into the context 
+                // Load all players from the database into the dbContext 
                 dbContext.Players.Load();
                 dbContext.Teams.Load();
 
