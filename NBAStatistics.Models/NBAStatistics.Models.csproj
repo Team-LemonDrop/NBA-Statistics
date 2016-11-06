@@ -83,8 +83,10 @@
     <Compile Include="MongoDB\Team.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerInfo.cs" />
+    <Compile Include="PlayersSeasons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="School.cs" />
+    <Compile Include="Season.cs" />
     <Compile Include="StandingsByDay.cs" />
     <Compile Include="Team.cs" />
   </ItemGroup>

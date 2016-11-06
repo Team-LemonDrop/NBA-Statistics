@@ -4,10 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBAStatistics.Models
 {
-    public partial class Player
+    public class Player
     {
+        private ICollection<PlayersSeasons> playedSeasons;
+
         public Player()
         {
+            this.playedSeasons = new HashSet<PlayersSeasons>();
         }
 
         public int Id { get; set; }
@@ -16,6 +19,7 @@ namespace NBAStatistics.Models
         [MaxLength(50)]
         public string FirstName { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
 
@@ -27,11 +31,11 @@ namespace NBAStatistics.Models
 
         public PlayerInfo AdditionalInfo { get; set; }
 
-        public int? CityId { get; set; }
+        public int CityId { get; set; }
 
         public virtual City City { get; set; }
 
-        public int? SchoolId { get; set; }
+        public int SchoolId { get; set; }
 
         public virtual School School { get; set; }
 
@@ -39,8 +43,14 @@ namespace NBAStatistics.Models
 
         public bool? IsActive { get; set; }
 
-        public int TeamId { get; set; }
-        
+        public int? TeamId { get; set; }
+
         public virtual Team Team { get; set; }
+
+        public virtual ICollection<PlayersSeasons> PlayedSeasons
+        {
+            get { return this.playedSeasons; }
+            set { this.playedSeasons = value; }
+        }
     }
 }

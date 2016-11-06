@@ -14,7 +14,6 @@ namespace NBAStatistics.Models
         {
             this.players = new HashSet<Player>();
             this.standingsByDays = new HashSet<StandingsByDay>();
-            //this.oldPlayers = new HashSet<Player>();
         }
 
         public int Id { get; set; }
