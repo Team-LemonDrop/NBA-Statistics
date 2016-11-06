@@ -1,8 +1,10 @@
+using System.Data.Entity.Migrations;
+
+using NBAStatistics.Data.Repositories.SQLServer;
+
 namespace NBAStatistics.Data.Migrations
 {
-    using System.Data.Entity.Migrations;
-
-    public sealed class Configuration : DbMigrationsConfiguration<NBAStatisticsContext>
+    public sealed class Configuration : DbMigrationsConfiguration<NBAStatisticsDbContext>
     {
         public Configuration()
         {
@@ -10,7 +12,7 @@ namespace NBAStatistics.Data.Migrations
             this.AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(NBAStatisticsContext context)
+        protected override void Seed(NBAStatisticsDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
