@@ -30,7 +30,7 @@ namespace NBAStatistics.Data.MySQL
             }
         }
 
-        public IQueryable<PlayerPointsPerGame> Categories
+        public IQueryable<PlayerPointsPerGame> PlayerPointsPerGame
         {
             get
             {
