@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <seasons>
-  <season id="2015-16">
+  <season id="2016-17">
     <teams>
       <team id="1610612737" abbreviation="ATL" city="Atlanta" founded="1949" country="US">
         <name>Atlanta Hawks</name>
@@ -184,7 +184,7 @@
       </team>
     </teams>
   </season>
-  <season id="2016-17">
+  <season id="2015-16">
     <teams>
       <team id="1610612737" abbreviation="ATL" city="Atlanta" founded="1949" country="US">
         <name>Atlanta Hawks</name>
