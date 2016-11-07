@@ -8,7 +8,7 @@ namespace NBAStatistics.Models.Models.Json
         public string Resource { get; set; }
 
         [JsonProperty("parameters")]
-        public TeamInfoParameters Parameters { get; set; }
+        public TeamInfoParameter Parameters { get; set; }
 
         [JsonProperty("resultsets")]
         public Resultset[] ResultSets { get; set; }
