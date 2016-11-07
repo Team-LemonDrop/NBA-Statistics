@@ -55,8 +55,6 @@
     <Compile Include="FillMongoDB.cs" />
     <Compile Include="Models\IMongoEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\MongoDbRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NBAStatistics.Models\NBAStatistics.Models.csproj">
