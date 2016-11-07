@@ -73,9 +73,11 @@
     <Compile Include="Image.cs" />
     <Compile Include="Models.Json\DailyStandings.cs" />
     <Compile Include="Models.Json\DailyStandingsParameters.cs" />
+    <Compile Include="Models.Json\PlayerInfo.cs" />
+    <Compile Include="Models.Json\PlayerInfoParameter.cs" />
     <Compile Include="Models.Json\Resultset.cs" />
     <Compile Include="Models.Json\TeamInfo.cs" />
-    <Compile Include="Models.Json\TeamInfoParameters.cs" />
+    <Compile Include="Models.Json\TeamInfoParameter.cs" />
     <Compile Include="MongoDB\Coach.cs" />
     <Compile Include="MongoDB\IEntity.cs" />
     <Compile Include="MongoDB\Player.cs" />
