@@ -55,10 +55,9 @@
     <Compile Include="Contracts\SQLServer\INBAStatisticsDbContext.cs" />
     <Compile Include="Contracts\SQLServer\INBAStatisticsData.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repositories\SQLServer\NBAStatisticsDbContext.cs" />
-    <Compile Include="Repositories\SQLServer\NBAStatisticsData.cs" />
+    <Compile Include="NBAStatisticsDbContext.cs" />
+    <Compile Include="NBAStatisticsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\SQLServer\EfRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
