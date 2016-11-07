@@ -16,7 +16,7 @@ namespace NBAStatistics.Data.Repositories
         {
             if (dbContext == null)
             {
-                throw new ArgumentNullException(nameof(dbContext), "Database context cannot be null!");
+                throw new ArgumentNullException(nameof(dbContext), "Entity Framework database context cannot be null!");
             }
 
             this.dbContext = dbContext;
