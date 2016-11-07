@@ -10,6 +10,7 @@ namespace NBAStatistics.Models
 
         [Required]
         [MaxLength(50)]
+        [Column("Arena")]
         public string Name { get; set; }
 
         public int? Capacity { get; set; }

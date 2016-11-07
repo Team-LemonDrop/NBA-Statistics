@@ -28,9 +28,9 @@ namespace NBAStatistics.Models
         [MaxLength(20)]
         public string Abbreviation { get; set; }
 
-        public DateTime? Founded { get; set; }
+        public int Founded { get; set; }
 
-        public int? CityId { get; set; }
+        public int CityId { get; set; }
 
         public virtual City City { get; set; }
 
