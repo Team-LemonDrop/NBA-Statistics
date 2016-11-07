@@ -35,12 +35,6 @@ namespace NBAStatistics.Data.Repositories
             entry.State = EntityState.Added;
         }
 
-        public void Update(T entity)
-        {
-            var entry = AttachIfDetached(entity);
-            entry.State = EntityState.Modified;
-        }
-
         public void Delete(T entity)
         {
             var entry = AttachIfDetached(entity);

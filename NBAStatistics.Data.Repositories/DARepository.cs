@@ -35,9 +35,5 @@ namespace NBAStatistics.Data.Repositories
         {
             return this.dbContext.GetAll<T>();
         }
-
-        public void Update(T value)
-        {
-        }
     }
 }

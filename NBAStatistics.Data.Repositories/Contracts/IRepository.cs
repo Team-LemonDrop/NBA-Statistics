@@ -8,8 +8,6 @@ namespace NBAStatistics.Data.Repositories.Contracts
 
         void Add(TEntity value);
 
-        void Update(TEntity value);
-
         void Delete(TEntity value);
     }
 }
