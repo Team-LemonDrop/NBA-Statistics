@@ -7,8 +7,8 @@
     <ProjectGuid>{CD81E9A4-2E77-41AA-B9CB-A2FEA9C3583C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NBAStatistics.Data.FillSQLiteDB</RootNamespace>
-    <AssemblyName>NBAStatistics.Data.FillSQLiteDB</AssemblyName>
+    <RootNamespace>NBAStatistics.Data.SQLite</RootNamespace>
+    <AssemblyName>NBAStatistics.Data.SQLite</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -66,9 +66,7 @@
     <Compile Include="FillSQLiteDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
