@@ -59,7 +59,25 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
                             dbContext.Teams.Add(new Team
                             {
                                 TeamId = team.TeamId,
-                                Name = team.Name
+                                Name = team.Name,
+                                Abbreviation = team.Abbreviation,
+                                Founded = team.Founded,
+                                City = new City
+                                {
+                                    Name = team.City,
+                                    Country = new Country
+                                    {
+                                        Name = team.Country
+                                    }
+                                },
+                                Arena = new Arena
+                                {
+                                    Name = team.Arena
+                                },
+                                HeadCoach = new HeadCoach
+                                {
+                                    Name = team.HeadCoach
+                                }
                             });
                         }
                     }
@@ -67,6 +85,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
 
                 await dbContext.SaveChangesAsync();
 
+                /*
                 var mongoPlayers = mongoDb.GetCollection<NBAStatistics.Data.FillMongoDB.Models.Player>("Players").AsQueryable().ToList();
 
                 // Load all players from the database into the dbContext 
@@ -107,6 +126,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
                 }
 
                 await dbContext.SaveChangesAsync();
+                */
             });
         }
 
@@ -125,7 +145,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
             var totalInches = (feets * 12) + inches;
             var centimeters = totalInches * 2.54;
 
-            return Math.Round(centimeters, 2);
+            return Math.Round(centimeters, 1);
         }
 
         public static double PoundsToKilogram(string sPounds)
