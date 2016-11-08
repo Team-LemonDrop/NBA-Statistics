@@ -1,71 +1,371 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <seasons>
-  <season id="2015-16">
-    <teams>
-      <team id="1610612737" name="Atlanta Hawks" />
-      <team id="1610612738" name="Boston Celtics" />
-      <team id="1610612751" name="Brooklyn Nets" />
-      <team id="1610612766" name="Charlotte Hornets" />
-      <team id="1610612741" name="Chicago Bulls" />
-      <team id="1610612739" name="Cleveland Cavaliers" />
-      <team id="1610612742" name="Dallas Mavericks" />
-      <team id="1610612743" name="Denver Nuggets" />
-      <team id="1610612765" name="Detroit Pistons" />
-      <team id="1610612744" name="Golden State Warriors" />
-      <team id="1610612745" name="Houston Rockets" />
-      <team id="1610612754" name="Indiana Pacers" />
-      <team id="1610612746" name="LA Clippers" />
-      <team id="1610612747" name="Los Angeles Lakers" />
-      <team id="1610612763" name="Memphis Grizzlies" />
-      <team id="1610612748" name="Miami Heat" />
-      <team id="1610612749" name="Milwaukee Bucks" />
-      <team id="1610612750" name="Minnesota Timberwolves" />
-      <team id="1610612740" name="New Orleans Pelicans" />
-      <team id="1610612752" name="New York Knicks" />
-      <team id="1610612760" name="Oklahoma City Thunder" />
-      <team id="1610612753" name="Orlando Magic" />
-      <team id="1610612755" name="Philadelphia 76ers" />
-      <team id="1610612756" name="Phoenix Suns" />
-      <team id="1610612757" name="Portland Trail Blazers" />
-      <team id="1610612758" name="Sacramento Kings" />
-      <team id="1610612759" name="San Antonio Spurs" />
-      <team id="1610612761" name="Toronto Raptors" />
-      <team id="1610612762" name="Utah Jazz" />
-      <team id="1610612764" name="Washington Wizards" />
-    </teams>
-  </season>
   <season id="2016-17">
     <teams>
-      <team id="1610612737" name="Atlanta Hawks" />
-      <team id="1610612738" name="Boston Celtics" />
-      <team id="1610612751" name="Brooklyn Nets" />
-      <team id="1610612766" name="Charlotte Hornets" />
-      <team id="1610612741" name="Chicago Bulls" />
-      <team id="1610612739" name="Cleveland Cavaliers" />
-      <team id="1610612742" name="Dallas Mavericks" />
-      <team id="1610612743" name="Denver Nuggets" />
-      <team id="1610612765" name="Detroit Pistons" />
-      <team id="1610612744" name="Golden State Warriors" />
-      <team id="1610612745" name="Houston Rockets" />
-      <team id="1610612754" name="Indiana Pacers" />
-      <team id="1610612746" name="LA Clippers" />
-      <team id="1610612747" name="Los Angeles Lakers" />
-      <team id="1610612763" name="Memphis Grizzlies" />
-      <team id="1610612748" name="Miami Heat" />
-      <team id="1610612749" name="Milwaukee Bucks" />
-      <team id="1610612750" name="Minnesota Timberwolves" />
-      <team id="1610612740" name="New Orleans Pelicans" />
-      <team id="1610612752" name="New York Knicks" />
-      <team id="1610612760" name="Oklahoma City Thunder" />
-      <team id="1610612753" name="Orlando Magic" />
-      <team id="1610612755" name="Philadelphia 76ers" />
-      <team id="1610612756" name="Phoenix Suns" />
-      <team id="1610612757" name="Portland Trail Blazers" />
-      <team id="1610612758" name="Sacramento Kings" />
-      <team id="1610612759" name="San Antonio Spurs" />
-      <team id="1610612761" name="Toronto Raptors" />
-      <team id="1610612762" name="Utah Jazz" />
-      <team id="1610612764" name="Washington Wizards" />
+      <team id="1610612737" abbreviation="ATL" city="Atlanta" founded="1949" country="US">
+        <name>Atlanta Hawks</name>
+        <arena>Philips Arena</arena>
+        <headcoach>Mike Budenholzer</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/ATL_logo.svg</logo-src>
+      </team>
+      <team id="1610612738" abbreviation="BOS" city="Boston" founded="1946" country="US">
+        <name>Boston Celtics</name>
+        <arena>TD Garden</arena>
+        <headcoach>Brad Stevens</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/BOS_logo.svg</logo-src>
+      </team>
+      <team id="1610612751" abbreviation="BKN" city="Brooklyn" founded="1976" country="US">
+        <name>Brooklyn Nets</name>
+        <arena>Barclays Center</arena>
+        <headcoach>Kenny Atkinson</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/BKN_logo.svg</logo-src>
+      </team>
+      <team id="1610612766" abbreviation="CHA" city="Charlotte" founded="1988" country="US">
+        <name>Charlotte Hornets</name>
+        <arena>Time Warner Cable Arena</arena>
+        <headcoach>Steve Clifford</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/CHA_logo.svg</logo-src>
+      </team>
+      <team id="1610612741" abbreviation="CHI" city="Chicago" founded="1966" country="US">
+        <name>Chicago Bulls</name>
+        <arena>United Center</arena>
+        <headcoach>Fred Hoiberg</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/CHI_logo.svg</logo-src>
+      </team>
+      <team id="1610612739" abbreviation="CLE" city="Cleveland" founded="1970" country="US">
+        <name>Cleveland Cavaliers</name>
+        <arena>Quicken Loans Arena</arena>
+        <headcoach>Tyronn Lue</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/CLE_logo.svg</logo-src>
+      </team>
+      <team id="1610612742" abbreviation="DAL" city="Dallas" founded="1980" country="US">
+        <name>Dallas Mavericks</name>
+        <arena>American Airlines Center</arena>
+        <headcoach>Rick Carlisle</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/DAL_logo.svg</logo-src>
+      </team>
+      <team id="1610612743" abbreviation="DEN" city="Denver" founded="1976" country="US">
+        <name>Denver Nuggets</name>
+        <arena>Pepsi Center</arena>
+        <headcoach>Mike Malone</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/DEN_logo.svg</logo-src>
+      </team>
+      <team id="1610612765" abbreviation="DET" city="Detroit" founded="1948" country="US">
+        <name>Detroit Pistons</name>
+        <arena>The Palace of Auburn Hills</arena>
+        <headcoach>Stan Van Gundy</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/DET_logo.svg</logo-src>
+      </team>
+      <team id="1610612744" abbreviation="GSW" city="Golden State" founded="1946" country="US">
+        <name>Golden State Warriors</name>
+        <arena>Oracle Arena</arena>
+        <headcoach>Steve Kerr</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/GSW_logo.svg</logo-src>
+      </team>
+      <team id="1610612745" abbreviation="HOU" city="Houston" founded="1967" country="US">
+        <name>Houston Rockets</name>
+        <arena>Toyota Center</arena>
+        <headcoach>Mike D'Antoni</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/HOU_logo.svg</logo-src>
+      </team>
+      <team id="1610612754" abbreviation="IND" city="Indiana" founded="1976" country="US">
+        <name>Indiana Pacers</name>
+        <arena>Bankers Life Fieldhouse</arena>
+        <headcoach>Nate McMillan</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/IND_logo.svg</logo-src>
+      </team>
+      <team id="1610612746" abbreviation="LAC" city="Los Angeles" founded="1970" country="US">
+        <name>LA Clippers</name>
+        <arena>STAPLES Center</arena>
+        <headcoach>Doc River</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/LAC_logo.svg</logo-src>
+      </team>
+      <team id="1610612747" abbreviation="LAL" city="Los Angeles" founded="1948" country="US">
+        <name>Los Angeles Lakers</name>
+        <arena>STAPLES Center</arena>
+        <headcoach>Luke Walton</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/LAL_logo.svg</logo-src>
+      </team>
+      <team id="1610612763" abbreviation="MEM" city="Memphis" founded="1995" country="US">
+        <name>Memphis Grizzlies</name>
+        <arena>FedEx Forum</arena>
+        <headcoach>David Fizdale</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MEM_logo.svg</logo-src>
+      </team>
+      <team id="1610612748" abbreviation="MIA" city="Miami" founded="1988" country="US">
+        <name>Miami Heat</name>
+        <arena>AmericanAirlines Arena</arena>
+        <headcoach>Erik Spoelstra</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MIA_logo.svg</logo-src>
+      </team>
+      <team id="1610612749" abbreviation="MIL" city="Milwaukee" founded="1968" country="US">
+        <name>Milwaukee Bucks</name>
+        <arena>BMO Harris Bradley Center</arena>
+        <headcoach>Jason Kidd</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MIL_logo.svg</logo-src>
+      </team>
+      <team id="1610612750" abbreviation="MIN" city="Minnesota" founded="1989" country="US">
+        <name>Minnesota Timberwolves</name>
+        <arena>Target Center</arena>
+        <headcoach>Tom Thibodeau</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MIN_logo.svg</logo-src>
+      </team>
+      <team id="1610612740" abbreviation="NOP" city="New Orleans" founded="2002" country="US">
+        <name>New Orleans Pelicans</name>
+        <arena>Smoothie King Arena</arena>
+        <headcoach>Alvin Gentry</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/NOP_logo.svg</logo-src>
+      </team>
+      <team id="1610612752" abbreviation="NYK" city="New York" founded="1946" country="US">
+        <name>New York Knicks</name>
+        <arena>Madison Square Garden (IV)</arena>
+        <headcoach>Jeff Hornacek</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/NYK_logo.svg</logo-src>
+      </team>
+      <team id="1610612760" abbreviation="OKC" city="Oklahoma" founded="1967" country="US">
+        <name>Oklahoma City Thunder</name>
+        <arena>Chesapeake Energy Arena</arena>
+        <headcoach>Billy Donovan</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/OKC_logo.svg</logo-src>
+      </team>
+      <team id="1610612753" abbreviation="ORL" city="Orlando" founded="1989" country="US">
+        <name>Orlando Magic</name>
+        <arena>Amway Center</arena>
+        <headcoach>Frank Vogel</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/ORL_logo.svg</logo-src>
+      </team>
+      <team id="1610612755" abbreviation="PHI" city="Philadelphia" founded="1949" country="US">
+        <name>Philadelphia Sixers</name>
+        <arena>Wells Fargo Center</arena>
+        <headcoach>Brett Brown</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/PHI_logo.svg</logo-src>
+      </team>
+      <team id="1610612756" abbreviation="PHX" city="Phoenix" founded="1968" country="US">
+        <name>Phoenix Suns</name>
+        <arena>Talking Stick Resort Arena</arena>
+        <headcoach>Earl Watson</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/PHX_logo.svg</logo-src>
+      </team>
+      <team id="1610612757" abbreviation="POR" city="Portland" founded="1970" country="US">
+        <name>Portland Trail Blazers</name>
+        <arena>Moda Center</arena>
+        <headcoach>Terry Stotts</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/POR_logo.svg</logo-src>
+      </team>
+      <team id="1610612758" abbreviation="SAC" city="Sacramento" founded="1948" country="US">
+        <name>Sacramento Kings</name>
+        <arena>Sleep Train Arena</arena>
+        <headcoach>Dave Joerger</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/SAC_logo.svg</logo-src>
+      </team>
+      <team id="1610612759" abbreviation="SAS" city="San Antonio" founded="1976" country="US">
+        <name>San Antonio Spurs</name>
+        <arena>AT'&#038;'T Center</arena>
+        <headcoach>Gregg Popovich</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/SAS_logo.svg</logo-src>
+      </team>
+      <team id="1610612761" abbreviation="TOR" city="Toronto" founded="1995" country="Canada">
+        <name>Toronto Raptors</name>
+        <arena>Air Canada Centre</arena>
+        <headcoach>Dwane Casey</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/TOR_logo.svg</logo-src>
+      </team>
+      <team id="1610612762" abbreviation="UTA" city="Utah" founded="1974" country="US">
+        <name>Utah Jazz</name>
+        <arena>Vivint Smart Home Arena</arena>
+        <headcoach>Quin Snyder</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/UTA_logo.svg</logo-src>
+      </team>
+      <team id="1610612764" abbreviation="WAS" city="Washington" founded="1961" country="US">
+        <name>Washington Wizards</name>
+        <arena>Verizon Center</arena>
+        <headcoach>Scott Brooks</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/WAS_logo.svg</logo-src>
+      </team>
+    </teams>
+  </season>
+  <season id="2015-16">
+    <teams>
+      <team id="1610612737" abbreviation="ATL" city="Atlanta" founded="1949" country="US">
+        <name>Atlanta Hawks</name>
+        <arena>Philips Arena</arena>
+        <headcoach>Mike Budenholzer</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/ATL_logo.svg</logo-src>
+      </team>
+      <team id="1610612738" abbreviation="BOS" city="Boston" founded="1946" country="US">
+        <name>Boston Celtics</name>
+        <arena>TD Garden</arena>
+        <headcoach>Brad Stevens</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/BOS_logo.svg</logo-src>
+      </team>
+      <team id="1610612751" abbreviation="BKN" city="Brooklyn" founded="1976" country="US">
+        <name>Brooklyn Nets</name>
+        <arena>Barclays Center</arena>
+        <headcoach>Kenny Atkinson</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/BKN_logo.svg</logo-src>
+      </team>
+      <team id="1610612766" abbreviation="CHA" city="Charlotte" founded="1988" country="US">
+        <name>Charlotte Hornets</name>
+        <arena>Time Warner Cable Arena</arena>
+        <headcoach>Steve Clifford</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/CHA_logo.svg</logo-src>
+      </team>
+      <team id="1610612741" abbreviation="CHI" city="Chicago" founded="1966" country="US">
+        <name>Chicago Bulls</name>
+        <arena>United Center</arena>
+        <headcoach>Fred Hoiberg</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/CHI_logo.svg</logo-src>
+      </team>
+      <team id="1610612739" abbreviation="CLE" city="Cleveland" founded="1970" country="US">
+        <name>Cleveland Cavaliers</name>
+        <arena>Quicken Loans Arena</arena>
+        <headcoach>Tyronn Lue</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/CLE_logo.svg</logo-src>
+      </team>
+      <team id="1610612742" abbreviation="DAL" city="Dallas" founded="1980" country="US">
+        <name>Dallas Mavericks</name>
+        <arena>American Airlines Center</arena>
+        <headcoach>Rick Carlisle</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/DAL_logo.svg</logo-src>
+      </team>
+      <team id="1610612743" abbreviation="DEN" city="Denver" founded="1976" country="US">
+        <name>Denver Nuggets</name>
+        <arena>Pepsi Center</arena>
+        <headcoach>Mike Malone</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/DEN_logo.svg</logo-src>
+      </team>
+      <team id="1610612765" abbreviation="DET" city="Detroit" founded="1948" country="US">
+        <name>Detroit Pistons</name>
+        <arena>The Palace of Auburn Hills</arena>
+        <headcoach>Stan Van Gundy</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/DET_logo.svg</logo-src>
+      </team>
+      <team id="1610612744" abbreviation="GSW" city="Golden State" founded="1946" country="US">
+        <name>Golden State Warriors</name>
+        <arena>Oracle Arena</arena>
+        <headcoach>Steve Kerr</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/GSW_logo.svg</logo-src>
+      </team>
+      <team id="1610612745" abbreviation="HOU" city="Houston" founded="1967" country="US">
+        <name>Houston Rockets</name>
+        <arena>Toyota Center</arena>
+        <headcoach>Mike D'Antoni</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/HOU_logo.svg</logo-src>
+      </team>
+      <team id="1610612754" abbreviation="IND" city="Indiana" founded="1976" country="US">
+        <name>Indiana Pacers</name>
+        <arena>Bankers Life Fieldhouse</arena>
+        <headcoach>Nate McMillan</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/IND_logo.svg</logo-src>
+      </team>
+      <team id="1610612746" abbreviation="LAC" city="Los Angeles" founded="1970" country="US">
+        <name>LA Clippers</name>
+        <arena>STAPLES Center</arena>
+        <headcoach>Doc River</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/LAC_logo.svg</logo-src>
+      </team>
+      <team id="1610612747" abbreviation="LAL" city="Los Angeles" founded="1948" country="US">
+        <name>Los Angeles Lakers</name>
+        <arena>STAPLES Center</arena>
+        <headcoach>Luke Walton</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/LAL_logo.svg</logo-src>
+      </team>
+      <team id="1610612763" abbreviation="MEM" city="Memphis" founded="1995" country="US">
+        <name>Memphis Grizzlies</name>
+        <arena>FedEx Forum</arena>
+        <headcoach>David Fizdale</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MEM_logo.svg</logo-src>
+      </team>
+      <team id="1610612748" abbreviation="MIA" city="Miami" founded="1988" country="US">
+        <name>Miami Heat</name>
+        <arena>AmericanAirlines Arena</arena>
+        <headcoach>Erik Spoelstra</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MIA_logo.svg</logo-src>
+      </team>
+      <team id="1610612749" abbreviation="MIL" city="Milwaukee" founded="1968" country="US">
+        <name>Milwaukee Bucks</name>
+        <arena>BMO Harris Bradley Center</arena>
+        <headcoach>Jason Kidd</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MIL_logo.svg</logo-src>
+      </team>
+      <team id="1610612750" abbreviation="MIN" city="Minnesota" founded="1989" country="US">
+        <name>Minnesota Timberwolves</name>
+        <arena>Target Center</arena>
+        <headcoach>Tom Thibodeau</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/MIN_logo.svg</logo-src>
+      </team>
+      <team id="1610612740" abbreviation="NOP" city="New Orleans" founded="2002" country="US">
+        <name>New Orleans Pelicans</name>
+        <arena>Smoothie King Arena</arena>
+        <headcoach>Alvin Gentry</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/NOP_logo.svg</logo-src>
+      </team>
+      <team id="1610612752" abbreviation="NYK" city="New York" founded="1946" country="US">
+        <name>New York Knicks</name>
+        <arena>Madison Square Garden (IV)</arena>
+        <headcoach>Jeff Hornacek</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/NYK_logo.svg</logo-src>
+      </team>
+      <team id="1610612760" abbreviation="OKC" city="Oklahoma" founded="1967" country="US">
+        <name>Oklahoma City Thunder</name>
+        <arena>Chesapeake Energy Arena</arena>
+        <headcoach>Billy Donovan</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/OKC_logo.svg</logo-src>
+      </team>
+      <team id="1610612753" abbreviation="ORL" city="Orlando" founded="1989" country="US">
+        <name>Orlando Magic</name>
+        <arena>Amway Center</arena>
+        <headcoach>Frank Vogel</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/ORL_logo.svg</logo-src>
+      </team>
+      <team id="1610612755" abbreviation="PHI" city="Philadelphia" founded="1949" country="US">
+        <name>Philadelphia Sixers</name>
+        <arena>Wells Fargo Center</arena>
+        <headcoach>Brett Brown</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/PHI_logo.svg</logo-src>
+      </team>
+      <team id="1610612756" abbreviation="PHX" city="Phoenix" founded="1968" country="US">
+        <name>Phoenix Suns</name>
+        <arena>Talking Stick Resort Arena</arena>
+        <headcoach>Earl Watson</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/PHX_logo.svg</logo-src>
+      </team>
+      <team id="1610612757" abbreviation="POR" city="Portland" founded="1970" country="US">
+        <name>Portland Trail Blazers</name>
+        <arena>Moda Center</arena>
+        <headcoach>Terry Stotts</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/POR_logo.svg</logo-src>
+      </team>
+      <team id="1610612758" abbreviation="SAC" city="Sacramento" founded="1948" country="US">
+        <name>Sacramento Kings</name>
+        <arena>Sleep Train Arena</arena>
+        <headcoach>Dave Joerger</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/SAC_logo.svg</logo-src>
+      </team>
+      <team id="1610612759" abbreviation="SAS" city="San Antonio" founded="1976" country="US">
+        <name>San Antonio Spurs</name>
+        <arena>AT'&#038;'T Center</arena>
+        <headcoach>Gregg Popovich</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/SAS_logo.svg</logo-src>
+      </team>
+      <team id="1610612761" abbreviation="TOR" city="Toronto" founded="1995" country="Canada">
+        <name>Toronto Raptors</name>
+        <arena>Air Canada Centre</arena>
+        <headcoach>Dwane Casey</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/TOR_logo.svg</logo-src>
+      </team>
+      <team id="1610612762" abbreviation="UTA" city="Utah" founded="1974" country="US">
+        <name>Utah Jazz</name>
+        <arena>Vivint Smart Home Arena</arena>
+        <headcoach>Quin Snyder</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/UTA_logo.svg</logo-src>
+      </team>
+      <team id="1610612764" abbreviation="WAS" city="Washington" founded="1961" country="US">
+        <name>Washington Wizards</name>
+        <arena>Verizon Center</arena>
+        <headcoach>Scott Brooks</headcoach>
+        <logo-src>http://stats.nba.com/media/img/teams/logos/WAS_logo.svg</logo-src>
+      </team>
     </teams>
   </season>
 </seasons>

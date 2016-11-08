@@ -43,3 +43,5 @@ http://stats.nba.com/stats/commonteaminfo?TeamID=1610612737
 
 
 http://stats.nba.com/media/img/teams/logos/PHI_logo.svg
+
+http://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=PerGame&PlayerID=203518

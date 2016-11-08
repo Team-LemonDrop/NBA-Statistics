@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBAStatistics.Models
 {
     public class City
     {
-        private ICollection<Player> players;
         private ICollection<School> schools;
         private ICollection<Team> teams;
 
         public City()
         {
-            this.players = new HashSet<Player>();
             this.schools = new HashSet<School>();
             this.teams = new HashSet<Team>();
         }
@@ -20,17 +19,12 @@ namespace NBAStatistics.Models
 
         [Required]
         [MaxLength(50)]
+        [Column("City")]
         public string Name { get; set; }
 
-        public int? CountryId { get; set; }
+        public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
-
-        public virtual ICollection<Player> Players
-        {
-            get { return this.players; }
-            set { this.players = value; }
-        }
 
         public virtual ICollection<School> Schools
         {

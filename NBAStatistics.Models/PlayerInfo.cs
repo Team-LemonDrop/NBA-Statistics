@@ -6,16 +6,16 @@ namespace NBAStatistics.Models
     [ComplexType]
     public class PlayerInfo
     {
-        [Column("PlayerId")]
+        [Column("PlayerId-NBA")]
         public int PlayerId { get; set; }
 
         [Column("Birthday")]
         public DateTime? Birthday { get; set; }
 
         [Column("Height")]
-        public double Height { get; set; }
+        public double? Height { get; set; }
 
         [Column("Weight")]
-        public double Weight { get; set; }
+        public double? Weight { get; set; }
     }
 }

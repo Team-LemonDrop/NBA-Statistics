@@ -2,7 +2,7 @@
 
 namespace NBAStatistics.Models.Models.Json
 {
-    public class TeamInfoParameters
+    public class TeamInfoParameter
     {
         [JsonProperty("teamid")]
         public int TeamID { get; set; }
