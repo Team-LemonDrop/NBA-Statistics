@@ -1,13 +1,13 @@
 ﻿using System.Data;
-using System.Data.SQLite;
+using System.Data.SqlClient;
 
 namespace NBA_Stats.ConnectionProviders
 {
-    public class SqliteDbConnectionProvider : ConnectionProvider
+    public class SqlServerConectionProvider : ConnectionProvider
     {
         protected override IDbConnection GetConnection(string connectionString)
         {
-            return new SQLiteConnection(connectionString);
+            return new SqlConnection(connectionString);
         }
     }
 }

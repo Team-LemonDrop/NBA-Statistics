@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NBA_Stats.ConnectionProviders
 {
-    public class OleDbConnectionProvider : IConnectionProvider
+    public class OleDbConnectionProvider // : Contracts.ConnectionProvider
     {
         public static string GetConnectionString(string filePath, bool xlsx)
         {
@@ -22,7 +22,7 @@ namespace NBA_Stats.ConnectionProviders
                 {
                     ["Provider"] = "Microsoft.ACE.OLEDB.12.0",
                     ["Data Source"] = filePath, // "../../trainers.xlsx"
-                    ["Extended Properties"] = "\"Excel 12.0 XML\""                    
+                    ["Extended Properties"] = "\"Excel 12.0 XML\""
                 };
             }
             else
@@ -34,7 +34,7 @@ namespace NBA_Stats.ConnectionProviders
                     ["Data Source"] = filePath, //"../../trainers.xls",
                     ["Extended Properties"] = "\"Excel 8.0;HDR=YES;\""
                 };
-            }           
+            }
 
             var sb = new StringBuilder();
             foreach (var prop in props)

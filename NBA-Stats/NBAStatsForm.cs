@@ -29,6 +29,8 @@ using System.Xml.XPath;
 using NBAStatistics.Data.ImportIntoSqlServer;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization;
+using NBAStatistics.Data.MySQL;
+using NBAStatistics.Data.MySQL.Models;
 
 namespace NBA_Stats
 {
@@ -622,12 +624,27 @@ namespace NBA_Stats
         {
             try
             {
-                var dbContext = new NBAStatistics.Data.Repositories.SQLServer.NBAStatisticsDbContext();
-                MessageBox.Show(dbContext.Players.Count().ToString());
+                using (var dbContext = new MySqlContext())
+                {
+                    //var pl = new PlayerPointsPerGame
+                    //{
+                    //    PlayerId = 1,
+                    //    PlayerName = "Pesho",
+                    //    TeamName = "CB",
+                    //    PointsPerGame = 31
+                    //};
+
+                    //dbContext.Add(pl);
+                    //dbContext.SaveChanges();
+
+                    MessageBox.Show(dbContext.PlayerPointsPerGame.ToList().Count().ToString());
+                }
+
+                MessageBox.Show("Works");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ex " + ex.Message);
+                MessageBox.Show("Ex \n" + ex.Message);
             }
         }
     }
