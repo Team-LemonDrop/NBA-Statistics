@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.Data.Reposito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.DataInputSeeders", "NBAStatistics.DataInputSeeders\NBAStatistics.DataInputSeeders.csproj", "{B3DB64E5-DF35-49D2-BC5B-CD13159D201F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBAStatistics.DataImporters", "NBAStatistics.DataImporters\NBAStatistics.DataImporters.csproj", "{D177D40C-335D-4177-ABA8-ACC04DAB65B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{B3DB64E5-DF35-49D2-BC5B-CD13159D201F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3DB64E5-DF35-49D2-BC5B-CD13159D201F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3DB64E5-DF35-49D2-BC5B-CD13159D201F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D177D40C-335D-4177-ABA8-ACC04DAB65B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D177D40C-335D-4177-ABA8-ACC04DAB65B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D177D40C-335D-4177-ABA8-ACC04DAB65B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D177D40C-335D-4177-ABA8-ACC04DAB65B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,5 +96,6 @@ Global
 		{8B593D73-CF08-43B4-B274-B5903BE4C9F7} = {CC2EE9A7-D21B-420E-87DD-4D1A1BA86F4B}
 		{A2A74D60-AE93-45F5-8A5D-A39BAEB6B5A3} = {CC2EE9A7-D21B-420E-87DD-4D1A1BA86F4B}
 		{B3DB64E5-DF35-49D2-BC5B-CD13159D201F} = {0DFA5295-0DCA-45D5-B47D-9B4F5935797D}
+		{D177D40C-335D-4177-ABA8-ACC04DAB65B9} = {0DFA5295-0DCA-45D5-B47D-9B4F5935797D}
 	EndGlobalSection
 EndGlobal
