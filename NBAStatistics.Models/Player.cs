@@ -30,17 +30,17 @@ namespace NBAStatistics.Models
 
         public PlayerInfo AdditionalInfo { get; set; }
 
-        public int? CityId { get; set; }
-
-        public virtual City City { get; set; }
-
         public int? SchoolId { get; set; }
 
         public virtual School School { get; set; }
 
+        public int? CountryId { get; set; }
+
+        public virtual Country Country { get; set; }
+
         public string Position { get; set; }
 
-        public bool? IsActive { get; set; }
+        public string RosterStatus { get; set; }
 
         public int TeamId { get; set; }
 

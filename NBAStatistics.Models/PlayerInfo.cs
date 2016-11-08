@@ -13,9 +13,9 @@ namespace NBAStatistics.Models
         public DateTime? Birthday { get; set; }
 
         [Column("Height")]
-        public double Height { get; set; }
+        public double? Height { get; set; }
 
         [Column("Weight")]
-        public double Weight { get; set; }
+        public double? Weight { get; set; }
     }
 }
