@@ -59,7 +59,7 @@
             // 
             this.btnImportDataIntoSqlServer.Location = new System.Drawing.Point(64, 155);
             this.btnImportDataIntoSqlServer.Name = "btnImportDataIntoSqlServer";
-            this.btnImportDataIntoSqlServer.Size = new System.Drawing.Size(170, 23);
+            this.btnImportDataIntoSqlServer.Size = new System.Drawing.Size(180, 23);
             this.btnImportDataIntoSqlServer.TabIndex = 2;
             this.btnImportDataIntoSqlServer.Text = "Import data into SQL Server";
             this.btnImportDataIntoSqlServer.UseVisualStyleBackColor = true;
