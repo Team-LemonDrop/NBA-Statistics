@@ -23,7 +23,6 @@ namespace NBAStatistics.Data.Repositories
             this.dbSet = dbContext.Set<T>();
         }
 
-
         public IEnumerable<T> GetAll()
         {
             return this.dbSet;
