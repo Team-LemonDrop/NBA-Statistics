@@ -23,6 +23,7 @@ namespace NBAStatistics.DataImporters
         {
             this.sourceRepository = sourceRepository;
             this.teamsRepository = teamsRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task Import()
