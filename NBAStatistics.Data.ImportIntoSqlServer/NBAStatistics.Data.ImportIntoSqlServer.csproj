@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NBAStatistics.Data.FillMongoDB\NBAStatistics.Data.FillMongoDB.csproj">
+      <Project>{6c2f92a4-fbff-4e78-b5ac-fdeaf45d5219}</Project>
+      <Name>NBAStatistics.Data.FillMongoDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NBAStatistics.Data\NBAStatistics.Data.csproj">
       <Project>{FF3FC613-EE7C-4C63-88B3-E68579183526}</Project>
       <Name>NBAStatistics.Data</Name>
