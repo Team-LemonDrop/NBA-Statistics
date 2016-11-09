@@ -10,7 +10,7 @@ using NBAStatistics.Data.Repositories.Contracts;
 
 namespace NBAStatistics.Data.Repositories
 {
-    public class MongoRepository<T> : IRepository<T> where T : class, IMongoEntity
+    public class MongoRepository<T> : IRepository<T> where T : class, IEntity
     {
         private readonly IMongoDatabase db;
         private readonly string collectionName;
