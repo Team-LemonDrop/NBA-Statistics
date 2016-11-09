@@ -52,6 +52,22 @@ namespace NBA_Stats
             InitializeComponent();
 
             this.ExeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            var dbContext = new NBAStatisticsDbContext();
+
+            if (dbContext.Conferences.Count() == 0)
+            {
+                dbContext.Conferences.Add(new NBAStatistics.Models.Conference
+                {
+                    Name = "East"
+                });
+                dbContext.Conferences.Add(new NBAStatistics.Models.Conference
+                {
+                    Name = "West"
+                });
+            }
+
+            dbContext.SaveChanges();
         }
 
         private async void btnGenerateZipFile_Click(object sender, EventArgs e)
@@ -94,7 +110,7 @@ namespace NBA_Stats
 
                     // random delay to simulate human requests and prevent blocking of 
                     // our IP address from server
-                    int milisecondsToDelay = RandomProvider.Instance.Next(0, numberOfFiles * 500);
+                    int milisecondsToDelay = RandomProvider.Instance.Next(0, numberOfFiles * 50);
 
                     tasks.Add(GetJsonObjFromNetworkFileAsync<DailyStandings>(uriString, Encoding.UTF8, options, milisecondsToDelay));
                 }
@@ -180,7 +196,7 @@ namespace NBA_Stats
                             }
 
                             // Force clean up to release file handles
-                            // http://stackoverflow.com/questions/2225087/the-process-cannot-access-the-file-because-it-is-being-used-by-another-process
+                            // source: http://stackoverflow.com/questions/2225087/the-process-cannot-access-the-file-because-it-is-being-used-by-another-process
                             GC.Collect();
                         }
                     }
@@ -485,7 +501,7 @@ namespace NBA_Stats
 
                                             // random delay to simulate human requests and prevent blocking of 
                                             // our IP address from server
-                                            int milisecondsToDelay = RandomProvider.Instance.Next(0, 30);
+                                            int milisecondsToDelay = RandomProvider.Instance.Next(0, 20);
 
                                             var playerInfo = await GetJsonObjFromNetworkFileAsync<PlayerInfo>(uriString, Encoding.UTF8, options, milisecondsToDelay);
 
@@ -630,7 +646,11 @@ namespace NBA_Stats
 
             try
             {
-                await ImportIntoSqlServer.Import();
+                await ImportIntoSqlServer.ImportFromMongoDB();
+
+                string zipPath = $"{this.ExeDirectory}reports.zip";
+
+                await ImportIntoSqlServer.ImportFromZipFile(zipPath);
 
                 //var dbContext = new NBAStatisticsDbContext();
                 //var teamsRepository = new EfRepository<Team>(dbContext);

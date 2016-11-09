@@ -5,20 +5,22 @@ namespace NBAStatistics.Models
 {
     public class Season
     {
-        private ICollection<PlayersSeasons> players;
+        private ICollection<PlayerSeasonPointsPerGame> players;
 
         public Season()
         {
-            this.players = new HashSet<PlayersSeasons>();
+            this.players = new HashSet<PlayerSeasonPointsPerGame>();
         }
 
         public int Id { get; set; }
 
-        public ushort StartYear { get; set; }
+        public string SeasonId { get; set; }
 
-        public ushort EndYear { get; set; }
+        //public ushort StartYear { get; set; }
 
-        public virtual ICollection<PlayersSeasons> Players
+        //public ushort EndYear { get; set; }
+
+        public virtual ICollection<PlayerSeasonPointsPerGame> Players
         {
             get { return this.players; }
             set { this.players = value; }
