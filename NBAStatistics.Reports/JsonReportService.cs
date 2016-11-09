@@ -19,11 +19,10 @@ namespace NBAStatistics.Reports
             this.jsonHandler = jsonHandler;
         }
 
-        public void CreatePointsPerGameReport(IRepository<PlayersSeasons> playedSeasonsDataSource, int seasonStartYear, int seasonEndYear)
+        public void CreatePointsPerGameReport(IRepository<PlayerSeasonPointsPerGame> playerSeasonsDataSource, string seasonId)
         {
-            var statistic = playedSeasonsDataSource
-                .Find(x => x.Season.StartYear == seasonStartYear &&
-                x.Season.EndYear == seasonEndYear)
+            var statistic = playerSeasonsDataSource
+                .Find(x => x.SeasonId == seasonId)
                 .Select(x => new PointsPerGameReportPoco
                 {
                     PlayerId = x.PlayerId,

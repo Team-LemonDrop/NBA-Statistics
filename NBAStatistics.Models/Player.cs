@@ -6,11 +6,11 @@ namespace NBAStatistics.Models
 {
     public class Player
     {
-        private ICollection<PlayersSeasons> playedSeasons;
+        private ICollection<PlayerSeasonPointsPerGame> playedSeasons;
 
         public Player()
         {
-            this.playedSeasons = new HashSet<PlayersSeasons>();
+            this.playedSeasons = new HashSet<PlayerSeasonPointsPerGame>();
         }
 
         public int Id { get; set; }
@@ -46,7 +46,7 @@ namespace NBAStatistics.Models
 
         public virtual Team Team { get; set; }
 
-        public virtual ICollection<PlayersSeasons> PlayedSeasons
+        public virtual ICollection<PlayerSeasonPointsPerGame> PlayedSeasons
         {
             get { return this.playedSeasons; }
             set { this.playedSeasons = value; }
