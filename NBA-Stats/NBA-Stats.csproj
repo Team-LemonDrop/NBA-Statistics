@@ -179,6 +179,14 @@
       <Project>{8b593d73-cf08-43b4-b274-b5903be4c9f7}</Project>
       <Name>NBAStatistics.Data.MySQL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NBAStatistics.Data.Repositories\NBAStatistics.Data.Repositories.csproj">
+      <Project>{A2A74D60-AE93-45F5-8A5D-A39BAEB6B5A3}</Project>
+      <Name>NBAStatistics.Data.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NBAStatistics.DataImporters\NBAStatistics.DataImporters.csproj">
+      <Project>{D177D40C-335D-4177-ABA8-ACC04DAB65B9}</Project>
+      <Name>NBAStatistics.DataImporters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NBAStatistics.Data\NBAStatistics.Data.csproj">
       <Project>{ff3fc613-ee7c-4c63-88b3-e68579183526}</Project>
       <Name>NBAStatistics.Data</Name>

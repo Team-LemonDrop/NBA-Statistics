@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -184,7 +185,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
             await Task.Run(async () =>
             {
                 var mongoSeasons = mongoDb.GetCollection<NBAStatistics.Data.FillMongoDB.Models.Season>("Seasons").AsQueryable().ToList();
-
+                
                 // Load all teams from the database into the dbContext 
                 dbContext.Teams.Load();
 
@@ -221,7 +222,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
 
                 foreach (var season in mongoSeasons)
                 {
-                    foreach (var team in season.Teams)
+                    foreach (var team in season.Teams)  
                     {
                         //var teamInDb = dbContext.Teams.Local
                         //    .FirstOrDefault(t => t.TeamId == team.TeamId);

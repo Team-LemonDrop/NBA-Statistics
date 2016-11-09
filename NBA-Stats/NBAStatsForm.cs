@@ -32,6 +32,9 @@ using MongoDB.Bson.Serialization;
 using NBAStatistics.Data.MySQL;
 using NBAStatistics.Data.MySQL.Models;
 using NBAStatistics.Data.Repositories.SQLServer;
+using NBAStatistics.Data.Repositories;
+using NBAStatistics.DataImporters;
+using SeasonMongo = NBAStatistics.Data.FillMongoDB.Models.Season;
 
 namespace NBA_Stats
 {
@@ -625,6 +628,22 @@ namespace NBA_Stats
         {
             this.btnImportDataIntoSqlServer.Enabled = false;
 
+            const string User = "miro";
+            const string Pass = "1qazcde3";
+            const string DbHost = "ds029565.mlab.com";
+            const int DbPort = 29565;
+            const string DbName = "appharbor_5cwg75nh";
+
+            var credentials = MongoCredential.CreateCredential(DbName, User, Pass);
+            var settings = new MongoClientSettings
+            {
+                Server = new MongoServerAddress(DbHost, DbPort),
+                Credentials = new List<MongoCredential> { credentials }
+            };
+
+            var client = new MongoClient(settings);
+            var mongoDb = client.GetDatabase(DbName);
+
             try
             {
                 await ImportIntoSqlServer.ImportFromMongoDB();
@@ -632,6 +651,12 @@ namespace NBA_Stats
                 string zipPath = $"{this.ExeDirectory}reports.zip";
 
                 await ImportIntoSqlServer.ImportFromZipFile(zipPath);
+
+                //var dbContext = new NBAStatisticsDbContext();
+                //var teamsRepository = new EfRepository<Team>(dbContext);
+                //var seasonsRepository = new MongoRepository<SeasonMongo>(mongoDb);
+                //var teamsUnitOfWork = new EfUnitOfWork(dbContext);
+                //var teamsImporter = new TeamsImporter(seasonsRepository, teamsRepository, teamsUnitOfWork);
             }
             catch (Exception ex)
             {
