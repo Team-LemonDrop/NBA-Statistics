@@ -1,6 +1,6 @@
 ﻿namespace NBAStatistics.Data.FillMongoDB.Models
 {
-    public interface IMongoEntity
+    public interface IEntity
     {
         string Id { get; set; }
     }
