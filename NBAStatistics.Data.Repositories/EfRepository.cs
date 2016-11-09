@@ -7,10 +7,18 @@ using NBAStatistics.Data.Repositories.Contracts;
 
 namespace NBAStatistics.Data.Repositories
 {
-    public class EfRepository<T> : IRepository<T> where T : class
+    public class EfRepository<T> : IEfRepository<T> where T : class
     {
         private readonly DbContext dbContext;
         private readonly IDbSet<T> dbSet;
+
+        public DbContext Context
+        {
+            get
+            {
+                return this.dbContext;
+            }
+        }
 
         public EfRepository(DbContext dbContext)
         {

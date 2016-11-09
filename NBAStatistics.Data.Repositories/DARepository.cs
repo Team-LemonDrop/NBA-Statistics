@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Telerik.OpenAccess;
 
 using NBAStatistics.Data.Repositories.Contracts;
+using System.Data.Entity;
 
 namespace NBAStatistics.Data.Repositories
 {
@@ -20,7 +21,7 @@ namespace NBAStatistics.Data.Repositories
 
             this.dbContext = dbContext;
         }
-
+        
         public void Add(T value)
         {
             this.dbContext.Add(value);

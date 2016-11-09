@@ -79,9 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IEfRepository.cs" />
+    <Compile Include="Contracts\IUnitOfWork.cs" />
     <Compile Include="DARepository.cs" />
     <Compile Include="EfRepository.cs" />
     <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="EfUnitOfWork.cs" />
     <Compile Include="MongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
