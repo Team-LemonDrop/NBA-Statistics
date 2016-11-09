@@ -78,11 +78,6 @@
     <Compile Include="Models.Json\Resultset.cs" />
     <Compile Include="Models.Json\TeamInfo.cs" />
     <Compile Include="Models.Json\TeamInfoParameter.cs" />
-    <Compile Include="MongoDB\Coach.cs" />
-    <Compile Include="MongoDB\IEntity.cs" />
-    <Compile Include="MongoDB\Player.cs" />
-    <Compile Include="MongoDB\Season.cs" />
-    <Compile Include="MongoDB\Team.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="PlayersSeasons.cs" />
