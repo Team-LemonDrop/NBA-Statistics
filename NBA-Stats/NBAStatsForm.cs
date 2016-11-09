@@ -360,268 +360,270 @@ namespace NBA_Stats
             this.btnFillMongoDb.Enabled = false;
 
             const string TeamUri = "http://stats.nba.com/stats/commonteamroster?";
-
-            try
+            await Task.Run(async () =>
             {
-                // === Move === //
-                const string User = "miro";
-                const string Pass = "1qazcde3";
-                const string DbHost = "ds029565.mlab.com";
-                const int DbPort = 29565;
-                const string DbName = "appharbor_5cwg75nh";
-
-                var credentials = MongoCredential.CreateCredential(DbName, User, Pass);
-                var settings = new MongoClientSettings
+                try
                 {
-                    Server = new MongoServerAddress(DbHost, DbPort),
-                    Credentials = new List<MongoCredential> { credentials }
-                };
+                    // === Move === //
+                    const string User = "miro";
+                    const string Pass = "1qazcde3";
+                    const string DbHost = "ds029565.mlab.com";
+                    const int DbPort = 29565;
+                    const string DbName = "appharbor_5cwg75nh";
 
-                var client = new MongoClient(settings);
-                var db = client.GetDatabase(DbName);
-                // === Move === //
-
-                var xmlDoc = XDocument.Load("../../teams-by-season.xml");
-
-                var seasonIdsFromXml = xmlDoc.XPathSelectElements("/seasons/season")
-                    .Select(el => el.Attribute("id").Value);
-
-                var seasons = new HashSet<Season>();
-                var seasonsToAddInMongoDb = new HashSet<Season>();
-
-                // get just season Id's to reduce network traffic
-                var collectionSeasons = db.GetCollection<Season>("Seasons");
-                var fieldsSeasons = Builders<Season>.Projection.Include(s => s.SeasonId);
-
-                var seasonIdsInMongoDb = collectionSeasons.Find(s => true)
-                    .Project<Season>(fieldsSeasons)
-                    .ToList()
-                    .Select(s => s.SeasonId);
-
-                foreach (var seasonId in seasonIdsFromXml)
-                {
-                    var teams = xmlDoc.XPathSelectElements($"/seasons/season[@id='{seasonId}']/teams/team")
-                        .Select(el => new Team(
-                            int.Parse(el.Attribute("id").Value),
-                            el.Element("name").Value,
-                            el.Attribute("abbreviation").Value,
-                            el.Element("logo-src").Value,
-                            el.Element("headcoach").Value,
-                            int.Parse(el.Attribute("founded").Value),
-                            el.Element("arena").Value,
-                            el.Attribute("city").Value,
-                            el.Attribute("country").Value))
-                        .ToList();
-
-                    seasons.Add(new Season(seasonId, teams));
-
-                    if (!seasonIdsInMongoDb.Contains(seasonId))
+                    var credentials = MongoCredential.CreateCredential(DbName, User, Pass);
+                    var settings = new MongoClientSettings
                     {
-                        seasonsToAddInMongoDb.Add(new Season(seasonId, teams));
-                    }
-                }
+                        Server = new MongoServerAddress(DbHost, DbPort),
+                        Credentials = new List<MongoCredential> { credentials }
+                    };
 
-                if (seasons.Count == 0)
-                {
-                    this.btnFillMongoDb.Enabled = true;
+                    var client = new MongoClient(settings);
+                    var db = client.GetDatabase(DbName);
+                    // === Move === //
 
-                    // MongoDB already contains this seasons 
-                    return;
-                }
+                    var xmlDoc = XDocument.Load("../../teams-by-season.xml");
 
-                if (seasonsToAddInMongoDb.Count > 0)
-                {
-                    await FillMongoDB.FillDatabase(
-                        seasonsToAddInMongoDb.Select(x => x.ToBsonDocument<Season>()), "Seasons");
-                }
+                    var seasonIdsFromXml = xmlDoc.XPathSelectElements("/seasons/season")
+                        .Select(el => el.Attribute("id").Value);
 
-                foreach (var seasonId in seasonIdsFromXml)
-                {
-                    var players = new HashSet<Player>();
-                    var coaches = new HashSet<Coach>();
+                    var seasons = new HashSet<Season>();
+                    var seasonsToAddInMongoDb = new HashSet<Season>();
 
-                    var teams = seasons.First(x => x.SeasonId == seasonId).Teams;
-                    var options = new Dictionary<string, string>();
+                    // get just season Id's to reduce network traffic
+                    var collectionSeasons = db.GetCollection<Season>("Seasons");
+                    var fieldsSeasons = Builders<Season>.Projection.Include(s => s.SeasonId);
 
-                    var tasks = new HashSet<Task<TeamInfo>>();
+                    var seasonIdsInMongoDb = collectionSeasons.Find(s => true)
+                        .Project<Season>(fieldsSeasons)
+                        .ToList()
+                        .Select(s => s.SeasonId);
 
-                    foreach (var team in teams)
+                    foreach (var seasonId in seasonIdsFromXml)
                     {
-                        string uriString = $"{TeamUri}TeamID={team.TeamId}&Season={seasonId}";
+                        var teams = xmlDoc.XPathSelectElements($"/seasons/season[@id='{seasonId}']/teams/team")
+                            .Select(el => new Team(
+                                int.Parse(el.Attribute("id").Value),
+                                el.Element("name").Value,
+                                el.Attribute("abbreviation").Value,
+                                el.Element("logo-src").Value,
+                                el.Element("headcoach").Value,
+                                int.Parse(el.Attribute("founded").Value),
+                                el.Element("arena").Value,
+                                el.Attribute("city").Value,
+                                el.Attribute("country").Value))
+                            .ToList();
 
-                        // random delay to simulate human requests and prevent blocking of 
-                        // our IP address from server
-                        int milisecondsToDelay = RandomProvider.Instance.Next(0, teams.Count() * 10);
+                        seasons.Add(new Season(seasonId, teams));
 
-                        tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, milisecondsToDelay));
-                    }
-
-                    await Task.Run(async () =>
-                    {
-                        // get just player Id's to reduce network traffic
-                        var collectionPlayers = db.GetCollection<Player>("Players");
-                        //var conditionPlayers = Builders<Player>.Filter.Eq(p => p.TeamId, currentTeamId);
-                        var fieldsPlayers = Builders<Player>.Projection.Include(p => p.PlayerId);
-
-                        var playerIdsInMongoDb = collectionPlayers.Find(p => true)//.Find(conditionPlayers)
-                            .Project<Player>(fieldsPlayers)
-                            .ToList()
-                            .Select(p => p.PlayerId);
-
-                        // get just coach Id's to reduce network traffic
-                        var collectionCoaches = db.GetCollection<Coach>("Coaches");
-                        //var conditionCoaches = Builders<Coach>.Filter.Eq(c => c.TeamId, currentTeamId);
-                        var fieldsCoaches = Builders<Coach>.Projection.Include(c => c.CoachId);
-
-                        var coachIdsInMongoDb = collectionCoaches.Find(c => true)//conditionCoaches)
-                            .Project<Coach>(fieldsCoaches)
-                            .ToList()
-                            .Select(c => c.CoachId);
-
-                        foreach (var teamInfo in await Task.WhenAll(tasks))
+                        if (!seasonIdsInMongoDb.Contains(seasonId))
                         {
-                            if (teamInfo == null)
-                            {
-                                MessageBox.Show("TeamInfo url does not response with JSON file.");
-                                return;
-                            }
+                            seasonsToAddInMongoDb.Add(new Season(seasonId, teams));
+                        }
+                    }
 
-                            // we need this when use conditionPlayers and conditionCoaches
-                            //var currentTeamId = (int)(long)teamInfo.ResultSets[0].RowSet[0][0];
+                    if (seasons.Count == 0)
+                    {
+                        this.btnFillMongoDb.Enabled = true;
 
-                            foreach (var resultSet in teamInfo.ResultSets)
-                            {
-                                if (resultSet.Name == "CommonTeamRoster")
-                                {
-                                    foreach (var row in resultSet.RowSet) // players
-                                    {
-                                        var playerId = (int)(long)row[12];
+                        // MongoDB already contains this seasons 
+                        return;
+                    }
 
-                                        if (!playerIdsInMongoDb.Contains(playerId))
-                                        {
-                                            string uriString = $"http://stats.nba.com/stats/commonplayerinfo?PlayerID={playerId}";
+                    if (seasonsToAddInMongoDb.Count > 0)
+                    {
+                        await FillMongoDB.FillDatabase(
+                            seasonsToAddInMongoDb.Select(x => x.ToBsonDocument<Season>()), "Seasons");
+                    }
 
-                                            // random delay to simulate human requests and prevent blocking of 
-                                            // our IP address from server
-                                            int milisecondsToDelay = RandomProvider.Instance.Next(0, 20);
+                    foreach (var seasonId in seasonIdsFromXml)
+                    {
+                        var players = new HashSet<Player>();
+                        var coaches = new HashSet<Coach>();
 
-                                            var playerInfo = await GetJsonObjFromNetworkFileAsync<PlayerInfo>(uriString, Encoding.UTF8, options, milisecondsToDelay);
+                        var teams = seasons.First(x => x.SeasonId == seasonId).Teams;
+                        var options = new Dictionary<string, string>();
 
-                                            var personId = playerInfo.ResultSets[0].RowSet[0][0];
-                                            var firstName = playerInfo.ResultSets[0].RowSet[0][1];
-                                            var lastName = playerInfo.ResultSets[0].RowSet[0][2];
-                                            var displayFirstLastName = playerInfo.ResultSets[0].RowSet[0][3];
-                                            var displayLastCommaFirstName = playerInfo.ResultSets[0].RowSet[0][4];
-                                            var displayFiLastName = playerInfo.ResultSets[0].RowSet[0][5];
-                                            DateTime birthDate = (DateTime)playerInfo.ResultSets[0].RowSet[0][6];
-                                            var school = playerInfo.ResultSets[0].RowSet[0][7];
-                                            var country = playerInfo.ResultSets[0].RowSet[0][8];
-                                            var lastAffiliation = playerInfo.ResultSets[0].RowSet[0][9];
-                                            var height = playerInfo.ResultSets[0].RowSet[0][10];
-                                            var weight = playerInfo.ResultSets[0].RowSet[0][11];
-                                            var seasonExp = playerInfo.ResultSets[0].RowSet[0][12];
-                                            var jersey = playerInfo.ResultSets[0].RowSet[0][13];
-                                            var position = playerInfo.ResultSets[0].RowSet[0][14];
-                                            var rosterStatus = playerInfo.ResultSets[0].RowSet[0][15];
-                                            var teamId = playerInfo.ResultSets[0].RowSet[0][16];
-                                            var teamName = playerInfo.ResultSets[0].RowSet[0][17];
-                                            var teamAbbreviation = playerInfo.ResultSets[0].RowSet[0][18];
-                                            var teamCode = playerInfo.ResultSets[0].RowSet[0][19];
-                                            var teamCity = playerInfo.ResultSets[0].RowSet[0][20];
-                                            var playerCode = playerInfo.ResultSets[0].RowSet[0][21];
-                                            var fromYear = playerInfo.ResultSets[0].RowSet[0][22];
-                                            var toYear = playerInfo.ResultSets[0].RowSet[0][23];
-                                            var dLeagueFlag = playerInfo.ResultSets[0].RowSet[0][24];
-                                            var gamesPlayedFlag = playerInfo.ResultSets[0].RowSet[0][25];
+                        var tasks = new HashSet<Task<TeamInfo>>();
 
-                                            // fill pointsPerGame with fake data
-                                            var seasonPointsPerGame = new Dictionary<string, double>();
-                                            seasonPointsPerGame[seasonId] = (double)RandomProvider.Instance.Next(0, 5000) / 100;
-                                            seasonPointsPerGame["2015-16"] = (double)RandomProvider.Instance.Next(0, 5000) / 100;
+                        foreach (var team in teams)
+                        {
+                            string uriString = $"{TeamUri}TeamID={team.TeamId}&Season={seasonId}";
 
-                                            players.Add(new Player(
-                                                (int)(long)personId,
-                                                (string)firstName,
-                                                (string)lastName,
-                                                (string)displayFirstLastName,
-                                                (string)displayLastCommaFirstName,
-                                                (string)displayFiLastName,
-                                                (DateTime)birthDate,
-                                                (string)school,
-                                                (string)country,
-                                                (string)lastAffiliation,
-                                                (string)height,
-                                                (string)weight,
-                                                (int)(long)seasonExp,
-                                                (string)jersey,
-                                                (string)position,
-                                                (string)rosterStatus,
-                                                (int)(long)teamId,
-                                                (string)teamName,
-                                                (string)teamAbbreviation,
-                                                (string)teamCode,
-                                                (string)teamCity,
-                                                (string)playerCode,
-                                                (int)(long)fromYear,
-                                                (int)(long)toYear,
-                                                (string)dLeagueFlag,
-                                                (string)gamesPlayedFlag,
-                                                seasonPointsPerGame
-                                            ));
-                                        }
-                                    }
-                                }
-                                else if (resultSet.Name == "Coaches")
-                                {
-                                    foreach (var row in resultSet.RowSet)
-                                    {
-                                        var coachId = row[2];
+                            // random delay to simulate human requests and prevent blocking of 
+                            // our IP address from server
+                            int milisecondsToDelay = RandomProvider.Instance.Next(0, teams.Count() * 10);
 
-                                        if (!coachIdsInMongoDb.Contains((string)coachId))
-                                        {
-                                            var teamId = row[0];
-                                            var season = row[1];
-                                            //var coachId = row[2];
-                                            var firstName = row[3];
-                                            var lastName = row[4];
-                                            var coachName = row[5];
-                                            var coachCode = row[6];
-                                            var isAssistant = row[7];
-                                            var coachType = row[8];
-                                            var school = row[9];
-                                            var sortSequence = row[10];
-
-                                            coaches.Add(new Coach(
-                                                (int)(long)teamId,
-                                                (string)season,
-                                                (string)coachId,
-                                                (string)firstName,
-                                                (string)lastName,
-                                                (string)coachName,
-                                                (string)coachCode,
-                                                (int)(double)isAssistant,
-                                                (string)coachType,
-                                                (string)school,
-                                                (int?)(double?)sortSequence
-                                            ));
-                                        }
-                                    }
-                                }
-                            }
+                            tasks.Add(GetJsonObjFromNetworkFileAsync<TeamInfo>(uriString, Encoding.UTF8, options, milisecondsToDelay));
                         }
 
-                        await FillMongoDB.FillDatabase(
-                            players.Select(x => x.ToBsonDocument()), "Players");
+                        await Task.Run(async () =>
+                        {
+                            // get just player Id's to reduce network traffic
+                            var collectionPlayers = db.GetCollection<Player>("Players");
+                            //var conditionPlayers = Builders<Player>.Filter.Eq(p => p.TeamId, currentTeamId);
+                            var fieldsPlayers = Builders<Player>.Projection.Include(p => p.PlayerId);
 
-                        await FillMongoDB.FillDatabase(
-                            coaches.Select(x => x.ToBsonDocument()), "Coaches");
-                    });
+                            var playerIdsInMongoDb = collectionPlayers.Find(p => true)//.Find(conditionPlayers)
+                                .Project<Player>(fieldsPlayers)
+                                .ToList()
+                                .Select(p => p.PlayerId);
+
+                            // get just coach Id's to reduce network traffic
+                            var collectionCoaches = db.GetCollection<Coach>("Coaches");
+                            //var conditionCoaches = Builders<Coach>.Filter.Eq(c => c.TeamId, currentTeamId);
+                            var fieldsCoaches = Builders<Coach>.Projection.Include(c => c.CoachId);
+
+                            var coachIdsInMongoDb = collectionCoaches.Find(c => true)//conditionCoaches)
+                                .Project<Coach>(fieldsCoaches)
+                                .ToList()
+                                .Select(c => c.CoachId);
+
+                            foreach (var teamInfo in await Task.WhenAll(tasks))
+                            {
+                                if (teamInfo == null)
+                                {
+                                    MessageBox.Show("TeamInfo url does not response with JSON file.");
+                                    return;
+                                }
+
+                                // we need this when use conditionPlayers and conditionCoaches
+                                //var currentTeamId = (int)(long)teamInfo.ResultSets[0].RowSet[0][0];
+
+                                foreach (var resultSet in teamInfo.ResultSets)
+                                {
+                                    if (resultSet.Name == "CommonTeamRoster")
+                                    {
+                                        foreach (var row in resultSet.RowSet) // players
+                                        {
+                                            var playerId = (int)(long)row[12];
+
+                                            if (!playerIdsInMongoDb.Contains(playerId))
+                                            {
+                                                string uriString = $"http://stats.nba.com/stats/commonplayerinfo?PlayerID={playerId}";
+
+                                                // random delay to simulate human requests and prevent blocking of 
+                                                // our IP address from server
+                                                int milisecondsToDelay = RandomProvider.Instance.Next(0, 20);
+
+                                                var playerInfo = await GetJsonObjFromNetworkFileAsync<PlayerInfo>(uriString, Encoding.UTF8, options, milisecondsToDelay);
+
+                                                var personId = playerInfo.ResultSets[0].RowSet[0][0];
+                                                var firstName = playerInfo.ResultSets[0].RowSet[0][1];
+                                                var lastName = playerInfo.ResultSets[0].RowSet[0][2];
+                                                var displayFirstLastName = playerInfo.ResultSets[0].RowSet[0][3];
+                                                var displayLastCommaFirstName = playerInfo.ResultSets[0].RowSet[0][4];
+                                                var displayFiLastName = playerInfo.ResultSets[0].RowSet[0][5];
+                                                DateTime birthDate = (DateTime)playerInfo.ResultSets[0].RowSet[0][6];
+                                                var school = playerInfo.ResultSets[0].RowSet[0][7];
+                                                var country = playerInfo.ResultSets[0].RowSet[0][8];
+                                                var lastAffiliation = playerInfo.ResultSets[0].RowSet[0][9];
+                                                var height = playerInfo.ResultSets[0].RowSet[0][10];
+                                                var weight = playerInfo.ResultSets[0].RowSet[0][11];
+                                                var seasonExp = playerInfo.ResultSets[0].RowSet[0][12];
+                                                var jersey = playerInfo.ResultSets[0].RowSet[0][13];
+                                                var position = playerInfo.ResultSets[0].RowSet[0][14];
+                                                var rosterStatus = playerInfo.ResultSets[0].RowSet[0][15];
+                                                var teamId = playerInfo.ResultSets[0].RowSet[0][16];
+                                                var teamName = playerInfo.ResultSets[0].RowSet[0][17];
+                                                var teamAbbreviation = playerInfo.ResultSets[0].RowSet[0][18];
+                                                var teamCode = playerInfo.ResultSets[0].RowSet[0][19];
+                                                var teamCity = playerInfo.ResultSets[0].RowSet[0][20];
+                                                var playerCode = playerInfo.ResultSets[0].RowSet[0][21];
+                                                var fromYear = playerInfo.ResultSets[0].RowSet[0][22];
+                                                var toYear = playerInfo.ResultSets[0].RowSet[0][23];
+                                                var dLeagueFlag = playerInfo.ResultSets[0].RowSet[0][24];
+                                                var gamesPlayedFlag = playerInfo.ResultSets[0].RowSet[0][25];
+
+                                                // fill pointsPerGame with fake data
+                                                var seasonPointsPerGame = new Dictionary<string, double>();
+                                                seasonPointsPerGame[seasonId] = (double)RandomProvider.Instance.Next(0, 5000) / 100;
+                                                seasonPointsPerGame["2015-16"] = (double)RandomProvider.Instance.Next(0, 5000) / 100;
+
+                                                players.Add(new Player(
+                                                    (int)(long)personId,
+                                                    (string)firstName,
+                                                    (string)lastName,
+                                                    (string)displayFirstLastName,
+                                                    (string)displayLastCommaFirstName,
+                                                    (string)displayFiLastName,
+                                                    (DateTime)birthDate,
+                                                    (string)school,
+                                                    (string)country,
+                                                    (string)lastAffiliation,
+                                                    (string)height,
+                                                    (string)weight,
+                                                    (int)(long)seasonExp,
+                                                    (string)jersey,
+                                                    (string)position,
+                                                    (string)rosterStatus,
+                                                    (int)(long)teamId,
+                                                    (string)teamName,
+                                                    (string)teamAbbreviation,
+                                                    (string)teamCode,
+                                                    (string)teamCity,
+                                                    (string)playerCode,
+                                                    (int)(long)fromYear,
+                                                    (int)(long)toYear,
+                                                    (string)dLeagueFlag,
+                                                    (string)gamesPlayedFlag,
+                                                    seasonPointsPerGame
+                                                ));
+                                            }
+                                        }
+                                    }
+                                    else if (resultSet.Name == "Coaches")
+                                    {
+                                        foreach (var row in resultSet.RowSet)
+                                        {
+                                            var coachId = row[2];
+
+                                            if (!coachIdsInMongoDb.Contains((string)coachId))
+                                            {
+                                                var teamId = row[0];
+                                                var season = row[1];
+                                                //var coachId = row[2];
+                                                var firstName = row[3];
+                                                var lastName = row[4];
+                                                var coachName = row[5];
+                                                var coachCode = row[6];
+                                                var isAssistant = row[7];
+                                                var coachType = row[8];
+                                                var school = row[9];
+                                                var sortSequence = row[10];
+
+                                                coaches.Add(new Coach(
+                                                    (int)(long)teamId,
+                                                    (string)season,
+                                                    (string)coachId,
+                                                    (string)firstName,
+                                                    (string)lastName,
+                                                    (string)coachName,
+                                                    (string)coachCode,
+                                                    (int)(double)isAssistant,
+                                                    (string)coachType,
+                                                    (string)school,
+                                                    (int?)(double?)sortSequence
+                                                ));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            await FillMongoDB.FillDatabase(
+                                players.Select(x => x.ToBsonDocument()), "Players");
+
+                            await FillMongoDB.FillDatabase(
+                                coaches.Select(x => x.ToBsonDocument()), "Coaches");
+                        });
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            });
 
             this.btnFillMongoDb.Enabled = true;
         }
