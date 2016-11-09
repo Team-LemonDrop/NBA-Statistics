@@ -138,7 +138,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
                                                     Wins = wins,
                                                     Loses = losses,
                                                     SuccessRate = Math.Round(winningsPercentage, 2),
-                                                    HomeRecord = (byte)homeRecord.Split(new char[] { '-'}, StringSplitOptions.RemoveEmptyEntries)                                                        
+                                                    HomeRecord = (byte)homeRecord.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries)
                                                         .Select(int.Parse)
                                                         .ToArray()[0],
                                                     RoadRecord = (byte)roadRecord.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries)
@@ -185,7 +185,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
             await Task.Run(async () =>
             {
                 var mongoSeasons = mongoDb.GetCollection<NBAStatistics.Data.FillMongoDB.Models.Season>("Seasons").AsQueryable().ToList();
-                
+
                 // Load all teams from the database into the dbContext 
                 dbContext.Teams.Load();
 
@@ -222,7 +222,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
 
                 foreach (var season in mongoSeasons)
                 {
-                    foreach (var team in season.Teams)  
+                    foreach (var team in season.Teams)
                     {
                         //var teamInDb = dbContext.Teams.Local
                         //    .FirstOrDefault(t => t.TeamId == team.TeamId);

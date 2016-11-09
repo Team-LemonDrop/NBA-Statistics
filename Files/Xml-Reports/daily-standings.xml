@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<teams>
+	<team name="Atlanta Hawks">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Boston Celtics">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+	<team name="Brooklyn Nets">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="4" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Charlotte Hornets">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="5" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+	<team name="Chicago Bulls">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Cleveland Cavaliers">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Dallas Mavericks">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Denver Nuggets">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="3" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="4" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Detroit Pistons">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Golden State Warriors">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Houston Rockets">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Indiana Pacers">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="LA Clippers">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Los Angeles Lakers">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="7" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="8" />
+	</team>
+	<team name="Memphis Grizzlies">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="7" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="8" />
+	</team>
+	<team name="Miami Heat">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="5" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+	<team name="Milwaukee Bucks">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="7" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Minnesota Timberwolves">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="2" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="3" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="4" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="5" />
+		<summary date="7-Nov-2016" games="5" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+	<team name="New Orleans Pelicans">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="8" />
+	</team>
+	<team name="New York Knicks">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="2" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+	<team name="Oklahoma City Thunder">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Orlando Magic">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Philadelphia Sixers">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="2" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="4" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="5" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+	<team name="Phoenix Suns">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="4" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="7" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="8" />
+	</team>
+	<team name="Portland Trail Blazers">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="7" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="8" />
+	</team>
+	<team name="Sacramento Kings">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="4" />
+		<summary date="1-Nov-2016" games="5" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="6" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="7" />
+		<summary date="6-Nov-2016" games="8" />
+		<summary date="7-Nov-2016" games="8" />
+		<summary date="8-Nov-2016" games="9" />
+	</team>
+	<team name="San Antonio Spurs">
+		<summary date="30-Oct-2016" games="4" />
+		<summary date="31-Oct-2016" games="4" />
+		<summary date="1-Nov-2016" games="5" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="7" />
+		<summary date="6-Nov-2016" games="7" />
+		<summary date="7-Nov-2016" games="7" />
+		<summary date="8-Nov-2016" games="7" />
+	</team>
+	<team name="Toronto Raptors">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="3" />
+		<summary date="2-Nov-2016" games="4" />
+		<summary date="3-Nov-2016" games="4" />
+		<summary date="4-Nov-2016" games="5" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="6" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+	<team name="Utah Jazz">
+		<summary date="30-Oct-2016" games="3" />
+		<summary date="31-Oct-2016" games="3" />
+		<summary date="1-Nov-2016" games="4" />
+		<summary date="2-Nov-2016" games="5" />
+		<summary date="3-Nov-2016" games="5" />
+		<summary date="4-Nov-2016" games="6" />
+		<summary date="5-Nov-2016" games="6" />
+		<summary date="6-Nov-2016" games="7" />
+		<summary date="7-Nov-2016" games="8" />
+		<summary date="8-Nov-2016" games="8" />
+	</team>
+	<team name="Washington Wizards">
+		<summary date="30-Oct-2016" games="2" />
+		<summary date="31-Oct-2016" games="2" />
+		<summary date="1-Nov-2016" games="2" />
+		<summary date="2-Nov-2016" games="3" />
+		<summary date="3-Nov-2016" games="3" />
+		<summary date="4-Nov-2016" games="4" />
+		<summary date="5-Nov-2016" games="5" />
+		<summary date="6-Nov-2016" games="5" />
+		<summary date="7-Nov-2016" games="6" />
+		<summary date="8-Nov-2016" games="6" />
+	</team>
+</teams>

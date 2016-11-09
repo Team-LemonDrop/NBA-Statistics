@@ -70,6 +70,7 @@
     <Compile Include="Pocos\GamePoco.cs" />
     <Compile Include="Pocos\PointsPerGamePoco.cs" />
     <Compile Include="Pocos\TeamDailyStandingsPoco.cs" />
+    <Compile Include="Pocos\TeamSuccessRatePoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Handlers\PlayedGamesXmlHandler.cs" />
     <Compile Include="XmlReportService.cs" />

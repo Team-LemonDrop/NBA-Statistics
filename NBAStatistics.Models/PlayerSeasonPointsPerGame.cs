@@ -5,8 +5,6 @@ namespace NBAStatistics.Models
 {
     public class PlayerSeasonPointsPerGame
     {
-        //public int Id { get; set; }
-
         [Key, Column(Order = 0)]
         public int PlayerId { get; set; }
 

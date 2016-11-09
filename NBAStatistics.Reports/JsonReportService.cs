@@ -3,12 +3,13 @@ using System.Linq;
 
 using NBAStatistics.Data.Contracts.Base;
 using NBAStatistics.Models;
+using NBAStatistics.Reports.Contracts;
 using NBAStatistics.Reports.Handlers.Contracts;
 using NBAStatistics.Reports.Pocos;
 
 namespace NBAStatistics.Reports
 {
-    public class JsonReportService
+    public class JsonReportService : IJsonReportService
     {
         private const string SaveDirectory = "../../Files/Json-Reports/";
 
@@ -19,7 +20,7 @@ namespace NBAStatistics.Reports
             this.jsonHandler = jsonHandler;
         }
 
-        public void CreatePointsPerGameReport(IRepository<PlayerSeasonPointsPerGame> playerSeasonsDataSource, string seasonId)
+        public void CreatePointsPerGameReport(IRepository<PlayerSeasonPointsPerGame> playerSeasonsDataSource)
         {
             var statistic = playerSeasonsDataSource
                 .Find(x => x.SeasonId == seasonId)

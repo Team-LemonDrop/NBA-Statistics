@@ -683,30 +683,10 @@ namespace NBA_Stats
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (var dbContext = new MySqlContext())
-                {
-                    //var pl = new PlayerPointsPerGame
-                    //{
-                    //    PlayerId = 1,
-                    //    PlayerName = "Pesho",
-                    //    TeamName = "CB",
-                    //    PointsPerGame = 31
-                    //};
-
-                    //dbContext.Add(pl);
-                    //dbContext.SaveChanges();
-
-                    MessageBox.Show(dbContext.PlayerPointsPerGame.ToList().Count().ToString());
-                }
-
-                MessageBox.Show("Works");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ex \n" + ex.Message);
-            }
+            var nbaStastsContext = new NBAStatisticsDbContext();
+            var teamsRepository = new EfRepository<NBAStatistics.Models.StandingsByDay>(nbaStastsContext);
+            var pdfService = new PdfReportService(teamsRepository);
+            pdfService.GeneratePdf();
         }
 
         private void button3_Click(object sender, EventArgs e)

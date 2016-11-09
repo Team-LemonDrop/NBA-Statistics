@@ -5,6 +5,6 @@ namespace NBAStatistics.Reports.Contracts
 {
     public interface IJsonReportService
     {
-        void CreatePointsPerGameReport(IRepository<PlayerSeasonPointsPerGame> playedSeasonsDataSource, int seasonStartYear, int seasonEndYear);
+        void CreatePointsPerGameReport(IRepository<PlayerSeasonPointsPerGame> playedSeasonsDataSource);
     }
 }

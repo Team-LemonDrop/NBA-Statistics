@@ -43,12 +43,13 @@ namespace NBAStatistics.Reports
                     gamesPlayed.Add(gameInfo);
                 }
 
-                standing.Games = gamesPlayed;
+                standing.Games = gamesPlayed.OrderBy(x => x.PlayedOn);
 
                 standingsPocos.Add(standing);
             }
 
-            this.xmlHandler.Serialize(standingsPocos, SaveDirectory + "daily-standings.xml");
+            var dailyStandingsSortedByTeamName = standingsPocos.OrderBy(x => x.TeamName);
+            this.xmlHandler.Serialize(dailyStandingsSortedByTeamName, SaveDirectory + "daily-standings.xml");
         }
     }
 }
