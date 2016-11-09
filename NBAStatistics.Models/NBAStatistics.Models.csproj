@@ -80,7 +80,7 @@
     <Compile Include="Models.Json\TeamInfoParameter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerInfo.cs" />
-    <Compile Include="PlayersSeasons.cs" />
+    <Compile Include="PlayerSeasonPointsPerGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="School.cs" />
     <Compile Include="Season.cs" />
