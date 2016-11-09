@@ -1,7 +1,9 @@
-﻿namespace NBAStatistics.DataImporters.Contracts
+﻿using System.Threading.Tasks;
+
+namespace NBAStatistics.DataImporters.Contracts
 {
-    public interface IDataImporter<T> where T : class
+    public interface IDataImporter
     {
-        void Import();
+        Task Import();
     }
 }

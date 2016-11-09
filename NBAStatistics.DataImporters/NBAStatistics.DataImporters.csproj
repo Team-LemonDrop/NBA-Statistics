@@ -31,7 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,16 +51,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IDataImporter.cs" />
-    <Compile Include="DataImporter.cs" />
+    <Compile Include="PlayersImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeamsImporter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NBAStatistics.Data.FillMongoDB\NBAStatistics.Data.FillMongoDB.csproj">
+      <Project>{6c2f92a4-fbff-4e78-b5ac-fdeaf45d5219}</Project>
+      <Name>NBAStatistics.Data.FillMongoDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NBAStatistics.Data.Repositories\NBAStatistics.Data.Repositories.csproj">
       <Project>{a2a74d60-ae93-45f5-8a5d-a39baeb6b5a3}</Project>
       <Name>NBAStatistics.Data.Repositories</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NBAStatistics.Models\NBAStatistics.Models.csproj">
+      <Project>{83CA476F-C0EA-4CE9-9878-B38F5CCAAC28}</Project>
+      <Name>NBAStatistics.Models</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
