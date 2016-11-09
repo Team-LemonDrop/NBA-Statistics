@@ -23,7 +23,7 @@ namespace NBAStatistics.Reports
         public void CreatePointsPerGameReport(IRepository<PlayerSeasonPointsPerGame> playerSeasonsDataSource)
         {
             var statistic = playerSeasonsDataSource
-                .Find(x => x.SeasonId == seasonId)
+                .GetAll()
                 .Select(x => new PointsPerGameReportPoco
                 {
                     PlayerId = x.PlayerId,
