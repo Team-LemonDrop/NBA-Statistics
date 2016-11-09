@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml;
 
@@ -12,7 +13,7 @@ namespace NBAStatistics.Reports
     {
         public void Serialize(IEnumerable<TeamDailyStandingsPoco> values, string rootPath)
         {
-            var fileEncoding = Encoding.GetEncoding("windows-1251");
+            var fileEncoding = Encoding.GetEncoding("utf-8");
             using (var xmlWriter = new XmlTextWriter(rootPath, fileEncoding))
             {
                 xmlWriter.Formatting = Formatting.Indented;
@@ -44,7 +45,7 @@ namespace NBAStatistics.Reports
         private void WriteGameData(XmlTextWriter xmlWriter, DateTime date, int games)
         {
             xmlWriter.WriteStartElement("summary");
-            xmlWriter.WriteAttributeString("date", date.ToShortDateString());
+            xmlWriter.WriteAttributeString("date", date.ToString("d-MMM-yyyy", new CultureInfo("en-US")));
             xmlWriter.WriteAttributeString("games", games.ToString());
             xmlWriter.WriteEndElement();
         }

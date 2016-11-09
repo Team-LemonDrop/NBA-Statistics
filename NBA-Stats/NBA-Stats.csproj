@@ -195,6 +195,10 @@
       <Project>{83ca476f-c0ea-4ce9-9878-b38f5ccaac28}</Project>
       <Name>NBAStatistics.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NBAStatistics.Reports\NBAStatistics.Reports.csproj">
+      <Project>{d84a5eb5-5d73-4949-880a-191c84715ba2}</Project>
+      <Name>NBAStatistics.Reports</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="OpenAccessNuget.targets" />

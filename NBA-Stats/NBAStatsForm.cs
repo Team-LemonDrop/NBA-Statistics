@@ -35,6 +35,8 @@ using NBAStatistics.Data.Repositories.SQLServer;
 using NBAStatistics.Data.Repositories;
 using NBAStatistics.DataImporters;
 using SeasonMongo = NBAStatistics.Data.FillMongoDB.Models.Season;
+using PlayerMongo = NBAStatistics.Data.FillMongoDB.Models.Player;
+using NBAStatistics.Reports;
 
 namespace NBA_Stats
 {
@@ -626,23 +628,23 @@ namespace NBA_Stats
 
         private async void btnImportDataIntoSqlServer_Click(object sender, EventArgs e)
         {
-            this.btnImportDataIntoSqlServer.Enabled = false;
+            //this.btnImportDataIntoSqlServer.Enabled = false;
 
-            const string User = "miro";
-            const string Pass = "1qazcde3";
-            const string DbHost = "ds029565.mlab.com";
-            const int DbPort = 29565;
-            const string DbName = "appharbor_5cwg75nh";
+            //const string User = "miro";
+            //const string Pass = "1qazcde3";
+            //const string DbHost = "ds029565.mlab.com";
+            //const int DbPort = 29565;
+            //const string DbName = "appharbor_5cwg75nh";
 
-            var credentials = MongoCredential.CreateCredential(DbName, User, Pass);
-            var settings = new MongoClientSettings
-            {
-                Server = new MongoServerAddress(DbHost, DbPort),
-                Credentials = new List<MongoCredential> { credentials }
-            };
+            //var credentials = MongoCredential.CreateCredential(DbName, User, Pass);
+            //var settings = new MongoClientSettings
+            //{
+            //    Server = new MongoServerAddress(DbHost, DbPort),
+            //    Credentials = new List<MongoCredential> { credentials }
+            //};
 
-            var client = new MongoClient(settings);
-            var mongoDb = client.GetDatabase(DbName);
+            //var client = new MongoClient(settings);
+            //var mongoDb = client.GetDatabase(DbName);
 
             try
             {
@@ -652,11 +654,24 @@ namespace NBA_Stats
 
                 await ImportIntoSqlServer.ImportFromZipFile(zipPath);
 
+                // Adding teams
+                //var seasonsSourceRepository = new MongoRepository<SeasonMongo>(mongoDb);
                 //var dbContext = new NBAStatisticsDbContext();
-                //var teamsRepository = new EfRepository<Team>(dbContext);
-                //var seasonsRepository = new MongoRepository<SeasonMongo>(mongoDb);
+                //var teamsRepository = new EfRepository<NBAStatistics.Models.Team>(dbContext);
                 //var teamsUnitOfWork = new EfUnitOfWork(dbContext);
-                //var teamsImporter = new TeamsImporter(seasonsRepository, teamsRepository, teamsUnitOfWork);
+                //var teamsImporter = new TeamsImporter(seasonsSourceRepository, teamsRepository, teamsUnitOfWork);
+
+                //await teamsImporter.Import();
+
+                //// Adding players
+                //var playersSourceRepository = new MongoRepository<PlayerMongo>(mongoDb);
+                //dbContext = new NBAStatisticsDbContext();
+                //var playersRepository = new EfRepository<NBAStatistics.Models.Player>(dbContext);
+                //teamsRepository = new EfRepository<NBAStatistics.Models.Team>(dbContext);
+                //var playersUnitOfWork = new EfUnitOfWork(dbContext);
+                //var playersImporter = new PlayersImporter(playersSourceRepository, playersRepository, teamsRepository, playersUnitOfWork);
+
+                //await playersImporter.Import();
             }
             catch (Exception ex)
             {
@@ -668,30 +683,26 @@ namespace NBA_Stats
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (var dbContext = new MySqlContext())
-                {
-                    //var pl = new PlayerPointsPerGame
-                    //{
-                    //    PlayerId = 1,
-                    //    PlayerName = "Pesho",
-                    //    TeamName = "CB",
-                    //    PointsPerGame = 31
-                    //};
+            var nbaStastsContext = new NBAStatisticsDbContext();
+            var teamsRepository = new EfRepository<NBAStatistics.Models.StandingsByDay>(nbaStastsContext);
+            var pdfService = new PdfReportService(teamsRepository);
+            pdfService.GeneratePdf();
+        }
 
-                    //dbContext.Add(pl);
-                    //dbContext.SaveChanges();
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var jsonHandler = new JsonHandler();
+            var reportService = new JsonReportService(jsonHandler);
+            //reportService.CreatePointsPerGameReport()
+        }
 
-                    MessageBox.Show(dbContext.PlayerPointsPerGame.ToList().Count().ToString());
-                }
-
-                MessageBox.Show("Works");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ex \n" + ex.Message);
-            }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var xmlHandler = new PlayedGamesXmlHandler();
+            var reportService = new XmlReportService(xmlHandler);
+            var nbaStatsContext = new NBAStatisticsDbContext();
+            var dailyStandingsRepository = new EfRepository<NBAStatistics.Models.StandingsByDay>(nbaStatsContext);
+            reportService.CreatePlayedGamesReport(dailyStandingsRepository);
         }
     }
 }
