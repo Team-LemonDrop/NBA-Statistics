@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
-using MongoDB.Bson;
 using MongoDB.Driver;
 using NBAStatistics.Data.Repositories.SQLServer;
-using NBAStatistics.Data.Contracts.SQLServer;
 using NBAStatistics.Models;
-using System.Globalization;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Windows.Forms;
 
 namespace NBAStatistics.Data.ImportIntoSqlServer
 {
@@ -41,7 +34,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
             await Task.Run(async () =>
             {
                 var mongoSeasons = mongoDb.GetCollection<NBAStatistics.Data.FillMongoDB.Models.Season>("Seasons").AsQueryable().ToList();
-
+                
                 // Load all teams from the database into the dbContext 
                 dbContext.Teams.Load();
 
@@ -78,7 +71,7 @@ namespace NBAStatistics.Data.ImportIntoSqlServer
 
                 foreach (var season in mongoSeasons)
                 {
-                    foreach (var team in season.Teams)
+                    foreach (var team in season.Teams)  
                     {
                         //var teamInDb = dbContext.Teams.Local
                         //    .FirstOrDefault(t => t.TeamId == team.TeamId);
