@@ -33,56 +33,59 @@ namespace NBAStatistics.DataImporters
         {
             await Task.Run(async () =>
             {
-                var mongoPlayers = this.sourceRepository.GetAll().ToList();
-
-                // Load all players from the database into the db Context 
-                this.playersRepository.Context.Set<Player>().Load();
-
-                // Loads all teams from database into db Context
-                this.teamsRepository.Context.Set<Team>().Load();
-
-                foreach (var player in mongoPlayers)
+                using (this.unitOfWork)
                 {
-                    // throws an exception if there is more than 1 element in the sequence
-                    var playerInDb = this.playersRepository.Context
-                        .Set<Player>()
-                        .Local
-                        .SingleOrDefault(p => p.AdditionalInfo.PlayerId == player.PlayerId); // runs in memory
+                    var mongoPlayers = this.sourceRepository.GetAll().ToList();
 
-                    if (playerInDb == null)
+                    // Load all players from the database into the db Context 
+                    this.playersRepository.Context.Set<Player>().Load();
+
+                    // Loads all teams from database into db Context
+                    this.teamsRepository.Context.Set<Team>().Load();
+
+                    foreach (var player in mongoPlayers)
                     {
-                        this.playersRepository.Add(new Player
-                        {
-                            FirstName = player.FirstName,
-                            LastName = player.LastName,
-                            AdditionalInfo = new PlayerInfo
-                            {
-                                PlayerId = player.PlayerId,
-                                Birthday = player.BirthDate,
-                                Height = string.IsNullOrEmpty(player.Height) ? null : ConvertHeightFromFeetsInchesToCentimeters(player.Height),
-                                Weight = string.IsNullOrEmpty(player.Weight) ? null : ConvertPoundsToKilogram(player.Weight)
-                            },
-                            School = string.IsNullOrEmpty(player.School) ? null : new School
-                            {
-                                Name = player.School
-                            },
-                            Country = string.IsNullOrEmpty(player.Country) ?
-                                new Country { Name = "NoName" } :
-                                    string.IsNullOrEmpty(player.Country.Trim()) ?
-                                        new Country { Name = "NoName" } :
-                                        new Country { Name = player.Country },
-                            Position = player.Position,
-                            RosterStatus = player.RosterStatus,
-                            TeamId = this.teamsRepository.Context
-                                .Set<Team>()
-                                .Local
-                                .Single(t => t.TeamId == player.TeamId)
-                                .Id
-                        });
-                    }
-                }
+                        // throws an exception if there is more than 1 element in the sequence
+                        var playerInDb = this.playersRepository.Context
+                            .Set<Player>()
+                            .Local
+                            .SingleOrDefault(p => p.AdditionalInfo.PlayerId == player.PlayerId); // runs in memory
 
-                await this.unitOfWork.CommitAsync();
+                        if (playerInDb == null)
+                        {
+                            this.playersRepository.Add(new Player
+                            {
+                                FirstName = player.FirstName,
+                                LastName = player.LastName,
+                                AdditionalInfo = new PlayerInfo
+                                {
+                                    PlayerId = player.PlayerId,
+                                    Birthday = player.BirthDate,
+                                    Height = string.IsNullOrEmpty(player.Height) ? null : ConvertHeightFromFeetsInchesToCentimeters(player.Height),
+                                    Weight = string.IsNullOrEmpty(player.Weight) ? null : ConvertPoundsToKilogram(player.Weight)
+                                },
+                                School = string.IsNullOrEmpty(player.School) ? null : new School
+                                {
+                                    Name = player.School
+                                },
+                                Country = string.IsNullOrEmpty(player.Country) ?
+                                    new Country { Name = "NoName" } :
+                                        string.IsNullOrEmpty(player.Country.Trim()) ?
+                                            new Country { Name = "NoName" } :
+                                            new Country { Name = player.Country },
+                                Position = player.Position,
+                                RosterStatus = player.RosterStatus,
+                                TeamId = this.teamsRepository.Context
+                                    .Set<Team>()
+                                    .Local
+                                    .Single(t => t.TeamId == player.TeamId)
+                                    .Id
+                            });
+                        }
+                    }
+
+                    await this.unitOfWork.CommitAsync();
+                }
             });
         }
 

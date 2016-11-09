@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 using NBAStatistics.Data.Repositories.Contracts;
@@ -17,6 +18,10 @@ namespace NBAStatistics.Data.Repositories
         public Task CommitAsync()
         {
             return this.context.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

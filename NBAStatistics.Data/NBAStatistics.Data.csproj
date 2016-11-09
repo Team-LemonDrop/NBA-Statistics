@@ -56,7 +56,6 @@
     <Compile Include="Contracts\SQLServer\INBAStatisticsData.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NBAStatisticsDbContext.cs" />
-    <Compile Include="NBAStatisticsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
